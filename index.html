@@ -647,6 +647,95 @@
             font-size: 1.2rem;
         }
 
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-section .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-table-container {
+            overflow-x: auto;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pricing-table thead {
+            background: var(--medium-green);
+            color: var(--text-white);
+        }
+
+        .pricing-table th {
+            padding: 1.5rem 1rem;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-bottom: 2px solid var(--light-green);
+        }
+
+        .pricing-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .pricing-table tbody tr:hover {
+            background: #f9f9f9;
+            transition: all 0.3s;
+        }
+
+        .pricing-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pricing-table .modalidad-cell {
+            font-weight: bold;
+            color: var(--medium-green);
+            font-size: 1.1rem;
+        }
+
+        .pricing-table .precio-cell {
+            font-weight: bold;
+            color: var(--light-green);
+            font-size: 1.15rem;
+        }
+
+        .pricing-note {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
         /* Success Projects Section */
         .success-projects-section {
             padding: 4rem 2rem;
@@ -834,6 +923,27 @@
                 width: 200px;
                 height: 100px;
             }
+
+            .pricing-table {
+                font-size: 0.9rem;
+            }
+
+            .pricing-table th,
+            .pricing-table td {
+                padding: 0.8rem 0.5rem;
+            }
+
+            .pricing-table th {
+                font-size: 0.95rem;
+            }
+
+            .pricing-table .modalidad-cell {
+                font-size: 1rem;
+            }
+
+            .pricing-table .precio-cell {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -854,6 +964,7 @@
                 <a href="#productos">Productos</a>
                 <a href="#hypersatellite">Hypersatellite</a>
                 <a href="#certificacion">Certificación</a>
+                <a href="#precios">Precios</a>
                 <a href="#cargar">Subir Mapa</a>
                 <a href="#contacto">Contacto</a>
             </div>
@@ -1113,6 +1224,62 @@
                 Inscríbete Aquí
             </a>
         </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="precios" class="pricing-section">
+        <h2>Precios y Planes</h2>
+        <p class="section-subtitle">Servicios con drones - Flexibilidad para predios de 30-200 hectáreas</p>
+
+        <div class="pricing-table-container">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Modalidad</th>
+                        <th>Precio</th>
+                        <th>Incluye</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="modalidad-cell">Pay-per-use<br>(Zonificación)</td>
+                        <td class="precio-cell">$10,000 COP/ha</td>
+                        <td>1 análisis + reporte + shapefile</td>
+                        <td>Mínimo: $2M por proyecto<br>Ideal para: 200 ha</td>
+                    </tr>
+                    <tr>
+                        <td class="modalidad-cell">Pay-per-use<br>(Conteo)</td>
+                        <td class="precio-cell">$50,000 COP/ha</td>
+                        <td>Conteo de árboles/frutos + reporte + shapefile</td>
+                        <td>Mínimo: 100 ha</td>
+                    </tr>
+                    <tr>
+                        <td class="modalidad-cell">Suscripción Básica</td>
+                        <td class="precio-cell">$3M/mes</td>
+                        <td>Hasta 300 ha<br>2 análisis/mes<br>Alertas WhatsApp</td>
+                        <td>Predios 30-200 ha<br>Ideal para seguimiento regular</td>
+                    </tr>
+                    <tr>
+                        <td class="modalidad-cell">Suscripción Pro</td>
+                        <td class="precio-cell">$8M/mes</td>
+                        <td>Hasta 800 ha<br>Análisis ilimitados<br>Históricos<br>Acceso API</td>
+                        <td>Para operaciones de gran escala<br>Integración con sistemas propios</td>
+                    </tr>
+                    <tr>
+                        <td class="modalidad-cell">White Label</td>
+                        <td class="precio-cell">$15M/año<br>+ 20% revenue share</td>
+                        <td>Plataforma completa<br>Tu marca<br>Soporte técnico<br>Actualización continua</td>
+                        <td>Para empresas de drones<br>Tecnología invisible bajo tu marca</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="pricing-note">
+            * Todos los precios están sujetos a cotización personalizada según las necesidades específicas del proyecto.<br>
+            Contáctanos para obtener una propuesta ajustada a tu operación.
+        </p>
     </section>
 
     <!-- Upload Section -->
