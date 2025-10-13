@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapia Digital - Análisis Geoespacial Agrícola</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-yellow: #fffd53;
+            --primary-black: #000000;
+            --dark-green: #2d4a1f;
+            --medium-green: #4e7e32;
+            --light-green: #5db53a;
+            --text-yellow: #fffd53;
+            --text-white: #ffffff;
+            --bg-white: #ffffff;
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--dark-green);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            width: 180px;
+            height: 60px;
+            background: var(--bg-white);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-yellow);
+            padding: 0.5rem;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--primary-yellow);
+            color: var(--dark-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--text-yellow);
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--text-yellow);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: var(--text-yellow);
+        }
+
+        .cta-button {
+            background: var(--light-green);
+            color: var(--text-white);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--light-green);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(93, 181, 58, 0.4);
+            background: var(--text-white);
+            color: var(--light-green);
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .upload-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .upload-main-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .main-upload-card {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid var(--medium-green);
+            cursor: pointer;
+        }
+
+        .main-upload-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--light-green);
+            box-shadow: 0 10px 30px rgba(78, 126, 50, 0.2);
+        }
+
+        .main-upload-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--medium-green);
+        }
+
+        .main-upload-card h3 {
+            color: var(--medium-green);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .main-upload-card p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Analisis MAPIA Subsection */
+        .analisis-mapia {
+            background: #f9f9f9;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+        }
+
+        .analisis-mapia h3 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .analisis-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .analisis-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        .analisis-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--medium-green);
+        }
+
+        .analisis-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+        }
+
+        .analisis-card h4 {
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .analisis-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .upload-placeholder {
+            background: var(--bg-white);
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-placeholder:hover {
+            background: var(--primary-yellow);
+            border-color: var(--primary-black);
+        }
+
+        /* Products & Services Section */
+        /* Benefits Section */
+        .benefits-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-white);
+        }
+
+        .benefits-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefit-item {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 5px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .benefit-item:hover {
+            border-color: var(--medium-green);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+        }
+
+        .benefit-item h3 {
+            color: var(--primary-black);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .benefit-item p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Products & Services Section */
+        .services-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-white);
+        }
+
+        .services-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 5px;
+            color: var(--primary-black);
+            transition: all 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-yellow);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--primary-black);
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+        }
+
+        .benefits-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-green);
+            color: var(--text-white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer h3 {
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .agtech-link {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 2rem;
+            background: var(--primary-yellow);
+            color: var(--dark-green);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-yellow);
+        }
+
+        .agtech-link:hover {
+            transform: scale(1.05);
+            background: transparent;
+            color: var(--primary-yellow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .upload-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="logos/Recurso 2mdpi.webp" alt="Mapia Digital Logo">
+            </div>
+            <a href="#beneficios">Beneficios</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#cargar">Subir Mapa</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="video/Video Hover -Pagina.mp4" type="video/mp4">
+                Tu navegador no soporta el elemento de video.
+            </video>
+        </div>
+        <div class="video-overlay"></div>
+        <div class="hero-content">
+            <h1>MAPIA DIGITAL</h1>
+            <p>Análisis Geoespacial Inteligente para la Agricultura de Precisión</p>
+            <a href="#cargar" class="cta-button">Comenzar Análisis</a>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="cargar" class="upload-section">
+        <h2>Carga tu Información Geoespacial</h2>
+
+        <!-- Main Upload Options -->
+        <div class="upload-main-options">
+            <!-- Ortomosaico de Drones -->
+            <div class="main-upload-card" id="drone-upload">
+                <div class="main-upload-icon">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Ortomosaico de Drones</h3>
+                <p>Carga imágenes aéreas de alta resolución capturadas con drones</p>
+            </div>
+
+            <!-- Análisis Satelital -->
+            <div class="main-upload-card" id="satellite-upload">
+                <div class="main-upload-icon">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a10 10 0 0 0 0 20"/>
+                        <path d="M2 12h20"/>
+                    </svg>
+                </div>
+                <h3>Análisis Satelital</h3>
+                <p>Procesa imágenes satelitales georeferenciadas para análisis completo</p>
+            </div>
+        </div>
+
+        <!-- Analisis MAPIA Subsection -->
+        <div class="analisis-mapia">
+            <h3>Análisis MAPIA</h3>
+            <div class="analisis-options">
+                <!-- Imagen Satelital -->
+                <div class="analisis-card">
+                    <div class="analisis-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 2a10 10 0 0 0 0 20"/>
+                            <path d="M2 12h20"/>
+                        </svg>
+                    </div>
+                    <h4>Imagen Satelital</h4>
+                    <p>Sube imágenes de satélite georeferenciadas</p>
+                    <div class="upload-placeholder">
+                        <p>↑ Click para subir<br>Formatos: TIFF, GeoTIFF, HDF</p>
+                    </div>
+                </div>
+
+                <!-- GPS Coordinates -->
+                <div class="analisis-card">
+                    <div class="analisis-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h4>Coordenadas GPS</h4>
+                    <p>Ingresa coordenadas de tu área de interés</p>
+                    <div class="upload-placeholder">
+                        <p>↑ Click para ingresar<br>Formato: Lat/Long o UTM</p>
+                    </div>
+                </div>
+
+                <!-- KML File -->
+                <div class="analisis-card">
+                    <div class="analisis-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 3h18v18H3z"/>
+                            <path d="M9 3v18"/>
+                            <path d="M15 3v18"/>
+                            <path d="M3 9h18"/>
+                            <path d="M3 15h18"/>
+                        </svg>
+                    </div>
+                    <h4>Archivo KML</h4>
+                    <p>Importa polígonos desde Google Earth</p>
+                    <div class="upload-placeholder">
+                        <p>↑ Click para subir<br>Formato: .KML, .KMZ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="beneficios" class="benefits-section">
+        <h2>Beneficios Clave</h2>
+        <div class="benefits-grid">
+            <!-- Benefit 1 -->
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h3>Toma de Decisiones Precisa</h3>
+                <p>Datos geoespaciales en tiempo real para decisiones agronómicas informadas</p>
+            </div>
+
+            <!-- Benefit 2 -->
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
+                <h3>Reducción de Costos</h3>
+                <p>Optimiza el uso de insumos agrícolas y reduce gastos operativos hasta un 30%</p>
+            </div>
+
+            <!-- Benefit 3 -->
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                </div>
+                <h3>Mayor Rendimiento</h3>
+                <p>Incrementa la productividad con agricultura de precisión basada en datos</p>
+            </div>
+
+            <!-- Benefit 4 -->
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                    </svg>
+                </div>
+                <h3>Uso Eficiente de Recursos</h3>
+                <p>Gestión inteligente de agua, fertilizantes y agroquímicos</p>
+            </div>
+
+            <!-- Benefit 5 -->
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                        <line x1="9" y1="9" x2="9.01" y2="9"/>
+                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
+                <h3>Sostenibilidad</h3>
+                <p>Reduce el impacto ambiental con prácticas agrícolas responsables</p>
+            </div>
+
+            <!-- Benefit 6 -->
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                </div>
+                <h3>Monitoreo Continuo</h3>
+                <p>Seguimiento 24/7 de cultivos con alertas automáticas de problemas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products & Services -->
+    <section id="servicios" class="services-section">
+        <h2>Productos y Servicios</h2>
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M12 2c-1.5 3-1.5 5-1.5 8s0 5 1.5 8M12 2c1.5 3 1.5 5 1.5 8s0 5-1.5 8"/>
+                        <path d="M8 8c-2 1-3 2-3 4s1 3 3 4M16 8c2 1 3 2 3 4s-1 3-3 4"/>
+                    </svg>
+                </div>
+                <h3>Análisis de Cultivos</h3>
+                <p>Monitoreo de salud vegetal y detección temprana de problemas</p>
+                <ul class="benefits-list">
+                    <li>Índices de vegetación (NDVI, NDRE)</li>
+                    <li>Detección de estrés hídrico</li>
+                    <li>Mapas de variabilidad</li>
+                    <li>Predicción de rendimiento</li>
+                </ul>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                        <path d="M12 16v-4"/>
+                    </svg>
+                </div>
+                <h3>Gestión de Riego</h3>
+                <p>Optimización del uso de agua mediante análisis espacial</p>
+                <ul class="benefits-list">
+                    <li>Mapas de humedad del suelo</li>
+                    <li>Zonas de manejo diferenciado</li>
+                    <li>Ahorro de hasta 30% en agua</li>
+                    <li>Programación inteligente</li>
+                </ul>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="6"/>
+                        <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                </div>
+                <h3>Aplicación Variable</h3>
+                <p>Mapas de prescripción para fertilización y agroquímicos</p>
+                <ul class="benefits-list">
+                    <li>Reducción de costos de insumos</li>
+                    <li>Aplicación precisa y localizada</li>
+                    <li>Mayor eficiencia productiva</li>
+                    <li>Impacto ambiental reducido</li>
+                </ul>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18 17V9l-5 5-3-3-4 4"/>
+                    </svg>
+                </div>
+                <h3>Reportes e Inteligencia</h3>
+                <p>Análisis histórico y predicciones basadas en IA</p>
+                <ul class="benefits-list">
+                    <li>Dashboards interactivos</li>
+                    <li>Análisis multitemporal</li>
+                    <li>Alertas automáticas</li>
+                    <li>Recomendaciones agronómicas</li>
+                </ul>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a10 10 0 0 0 0 20"/>
+                        <path d="M2 12h20"/>
+                        <path d="M12 2v20"/>
+                    </svg>
+                </div>
+                <h3>Mapeo y Topografía</h3>
+                <p>Modelos digitales del terreno y curvas de nivel</p>
+                <ul class="benefits-list">
+                    <li>MDT de alta resolución</li>
+                    <li>Análisis de drenaje</li>
+                    <li>Diseño de sistemas de riego</li>
+                    <li>Planificación de siembra</li>
+                </ul>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6M23 12h-6m-6 0H1"/>
+                        <path d="M18.36 5.64l-4.24 4.24m0 4.24l4.24 4.24M5.64 5.64l4.24 4.24m0 4.24l-4.24 4.24"/>
+                    </svg>
+                </div>
+                <h3>Análisis Multiespectral</h3>
+                <p>Procesamiento avanzado de imágenes especializadas</p>
+                <ul class="benefits-list">
+                    <li>RGB, NIR, Red Edge</li>
+                    <li>Clasificación de cultivos</li>
+                    <li>Detección de plagas/enfermedades</li>
+                    <li>Conteo de plantas</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <h3>Únete al Ecosistema AgTech</h3>
+        <a href="#" class="agtech-link">AgTech Program</a>
+        <p style="margin-top: 2rem;">© 2024 Mapia Digital. Transformando la agricultura con tecnología geoespacial.</p>
+    </footer>
+
+    <script>
+        // Configuración API
+        const API_URL = 'http://localhost:8000';
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animación en scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .benefit-item, .main-upload-card, .analisis-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Función genérica para upload
+        async function uploadFile(file, endpoint, extraData = {}) {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            for (const [key, value] of Object.entries(extraData)) {
+                formData.append(key, value);
+            }
+
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Error en la carga');
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+
+        // Handler para cada tipo de upload en Analisis MAPIA
+        function setupUploadHandler(cardIndex, endpoint, acceptFormats) {
+            const cards = document.querySelectorAll('.analisis-card');
+            const card = cards[cardIndex];
+            const placeholder = card.querySelector('.upload-placeholder');
+            
+            // Crear input file
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = acceptFormats;
+            input.style.display = 'none';
+            placeholder.appendChild(input);
+
+            placeholder.addEventListener('click', () => {
+                if (!placeholder.classList.contains('uploading')) {
+                    input.click();
+                }
+            });
+
+            input.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                // Estado de carga
+                placeholder.classList.add('uploading');
+                const originalHTML = placeholder.innerHTML;
+                placeholder.innerHTML = `
+                    <div style="padding: 1rem;">
+                        <div style="font-size: 2rem;">⏳</div>
+                        <p>Subiendo ${file.name}...</p>
+                    </div>
+                `;
+
+                try {
+                    const result = await uploadFile(file, endpoint);
+                    
+                    // Éxito
+                    placeholder.innerHTML = `
+                        <div style="padding: 1rem; color: var(--secondary-green);">
+                            <div style="font-size: 2rem;">✅</div>
+                            <p><strong>¡Cargado!</strong></p>
+                            <small>${file.name}</small>
+                            <br>
+                            <small>ID: ${result.file_id}</small>
+                        </div>
+                    `;
+
+                    console.log('Upload exitoso:', result);
+
+                    // Reset después de 3 segundos
+                    setTimeout(() => {
+                        placeholder.innerHTML = originalHTML;
+                        placeholder.classList.remove('uploading');
+                        input.value = '';
+                        setupUploadHandler(cardIndex, endpoint, acceptFormats);
+                    }, 3000);
+
+                } catch (error) {
+                    // Error
+                    placeholder.innerHTML = `
+                        <div style="padding: 1rem; color: #d32f2f;">
+                            <div style="font-size: 2rem;">❌</div>
+                            <p><strong>Error</strong></p>
+                            <small>${error.message}</small>
+                        </div>
+                    `;
+
+                    setTimeout(() => {
+                        placeholder.innerHTML = originalHTML;
+                        placeholder.classList.remove('uploading');
+                        input.value = '';
+                        setupUploadHandler(cardIndex, endpoint, acceptFormats);
+                    }, 3000);
+                }
+            });
+        }
+
+        // Setup para GPS coordinates
+        function setupGPSHandler() {
+            const cards = document.querySelectorAll('.analisis-card');
+            const card = cards[1]; // GPS es el segundo en analisis-card
+            const placeholder = card.querySelector('.upload-placeholder');
+
+            placeholder.addEventListener('click', () => {
+                const lat = prompt('Ingresa latitud (ej: -25.2637):');
+                if (!lat) return;
+                
+                const lon = prompt('Ingresa longitud (ej: -57.5759):');
+                if (!lon) return;
+
+                uploadGPSCoordinates(parseFloat(lat), parseFloat(lon), placeholder);
+            });
+        }
+
+        async function uploadGPSCoordinates(lat, lon, placeholder) {
+            const originalHTML = placeholder.innerHTML;
+            placeholder.innerHTML = `
+                <div style="padding: 1rem;">
+                    <div style="font-size: 2rem;">⏳</div>
+                    <p>Procesando coordenadas...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`${API_URL}/upload/coordinates`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        latitude: lat,
+                        longitude: lon,
+                        format_type: 'decimal'
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Error procesando coordenadas');
+                }
+
+                const result = await response.json();
+
+                placeholder.innerHTML = `
+                    <div style="padding: 1rem; color: var(--secondary-green);">
+                        <div style="font-size: 2rem;">✅</div>
+                        <p><strong>Coordenadas guardadas</strong></p>
+                        <small>Lat: ${lat}, Lon: ${lon}</small>
+                    </div>
+                `;
+
+                console.log('GPS exitoso:', result);
+
+                setTimeout(() => {
+                    placeholder.innerHTML = originalHTML;
+                    setupGPSHandler();
+                }, 3000);
+
+            } catch (error) {
+                placeholder.innerHTML = `
+                    <div style="padding: 1rem; color: #d32f2f;">
+                        <div style="font-size: 2rem;">❌</div>
+                        <p><strong>Error</strong></p>
+                        <small>${error.message}</small>
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    placeholder.innerHTML = originalHTML;
+                    setupGPSHandler();
+                }, 3000);
+            }
+        }
+
+        // Inicializar handlers cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            // Imagen Satelital (index 0 en analisis-card)
+            setupUploadHandler(0, '/upload/satellite', '.tif,.tiff,.hdf');
+
+            // GPS (index 1 en analisis-card) - handler especial
+            setupGPSHandler();
+
+            // KML (index 2 en analisis-card)
+            setupUploadHandler(2, '/upload/kml', '.kml,.kmz');
+        });
+    </script>
+</body>
+</html>
