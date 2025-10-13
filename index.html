@@ -736,6 +736,38 @@
             font-style: italic;
         }
 
+        .pricing-table-drone thead {
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--light-green) 100%);
+        }
+
+        .pricing-table-satellite thead {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a5a8f 100%);
+        }
+
+        .pricing-table-drone tbody tr:hover {
+            background: rgba(93, 181, 58, 0.05);
+        }
+
+        .pricing-table-satellite tbody tr:hover {
+            background: rgba(42, 90, 143, 0.05);
+        }
+
+        .pricing-table-drone .modalidad-cell {
+            color: var(--medium-green);
+        }
+
+        .pricing-table-satellite .modalidad-cell {
+            color: #2a5a8f;
+        }
+
+        .pricing-table-drone .precio-cell {
+            color: var(--light-green);
+        }
+
+        .pricing-table-satellite .precio-cell {
+            color: #3a7bc8;
+        }
+
         /* Success Projects Section */
         .success-projects-section {
             padding: 4rem 2rem;
@@ -943,6 +975,17 @@
 
             .pricing-table .precio-cell {
                 font-size: 1rem;
+            }
+
+            .pricing-section h3 {
+                font-size: 1.5rem !important;
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .pricing-section h3 svg {
+                width: 30px !important;
+                height: 30px !important;
             }
         }
     </style>
@@ -1229,51 +1272,120 @@
     <!-- Pricing Section -->
     <section id="precios" class="pricing-section">
         <h2>Precios y Planes</h2>
-        <p class="section-subtitle">Servicios con drones - Flexibilidad para predios de 30-200 hectáreas</p>
+        <p class="section-subtitle">Soluciones flexibles para cada tipo de operación agrícola</p>
 
-        <div class="pricing-table-container">
-            <table class="pricing-table">
-                <thead>
-                    <tr>
-                        <th>Modalidad</th>
-                        <th>Precio</th>
-                        <th>Incluye</th>
-                        <th>Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="modalidad-cell">Pay-per-use<br>(Zonificación)</td>
-                        <td class="precio-cell">$10,000 COP/ha</td>
-                        <td>1 análisis + reporte + shapefile</td>
-                        <td>Mínimo: $2M por proyecto<br>Ideal para: 200 ha</td>
-                    </tr>
-                    <tr>
-                        <td class="modalidad-cell">Pay-per-use<br>(Conteo)</td>
-                        <td class="precio-cell">$50,000 COP/ha</td>
-                        <td>Conteo de árboles/frutos + reporte + shapefile</td>
-                        <td>Mínimo: 100 ha</td>
-                    </tr>
-                    <tr>
-                        <td class="modalidad-cell">Suscripción Básica</td>
-                        <td class="precio-cell">$3M/mes</td>
-                        <td>Hasta 300 ha<br>2 análisis/mes<br>Alertas WhatsApp</td>
-                        <td>Predios 30-200 ha<br>Ideal para seguimiento regular</td>
-                    </tr>
-                    <tr>
-                        <td class="modalidad-cell">Suscripción Pro</td>
-                        <td class="precio-cell">$8M/mes</td>
-                        <td>Hasta 800 ha<br>Análisis ilimitados<br>Históricos<br>Acceso API</td>
-                        <td>Para operaciones de gran escala<br>Integración con sistemas propios</td>
-                    </tr>
-                    <tr>
-                        <td class="modalidad-cell">White Label</td>
-                        <td class="precio-cell">$15M/año<br>+ 20% revenue share</td>
-                        <td>Plataforma completa<br>Tu marca<br>Soporte técnico<br>Actualización continua</td>
-                        <td>Para empresas de drones<br>Tecnología invisible bajo tu marca</td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Drones Pricing Table -->
+        <div style="margin-bottom: 5rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="color: var(--medium-green); font-size: 2rem; margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    Servicios con Drones
+                </h3>
+                <p style="color: #666; font-size: 1.1rem;">Imágenes de alta resolución - Ideal para predios de 30-200 hectáreas</p>
+            </div>
+
+            <div class="pricing-table-container">
+                <table class="pricing-table pricing-table-drone">
+                    <thead>
+                        <tr>
+                            <th>Modalidad</th>
+                            <th>Precio</th>
+                            <th>Incluye</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="modalidad-cell">Pay-per-use<br>(Zonificación)</td>
+                            <td class="precio-cell">$10,000 COP/ha</td>
+                            <td>1 análisis + reporte + shapefile</td>
+                            <td>Mínimo: $2M por proyecto<br>Ideal para: 200 ha</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Pay-per-use<br>(Conteo)</td>
+                            <td class="precio-cell">$50,000 COP/ha</td>
+                            <td>Conteo de árboles/frutos + reporte + shapefile</td>
+                            <td>Mínimo: 100 ha</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Suscripción Básica</td>
+                            <td class="precio-cell">$3M/mes</td>
+                            <td>Hasta 300 ha<br>2 análisis/mes<br>Alertas WhatsApp</td>
+                            <td>Predios 30-200 ha<br>Ideal para seguimiento regular</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Suscripción Pro</td>
+                            <td class="precio-cell">$8M/mes</td>
+                            <td>Hasta 800 ha<br>Análisis ilimitados<br>Históricos<br>Acceso API</td>
+                            <td>Para operaciones de gran escala<br>Integración con sistemas propios</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">White Label</td>
+                            <td class="precio-cell">$15M/año<br>+ 20% revenue share</td>
+                            <td>Plataforma completa<br>Tu marca<br>Soporte técnico<br>Actualización continua</td>
+                            <td>Para empresas de drones<br>Tecnología invisible bajo tu marca</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Satellite Pricing Table -->
+        <div style="margin-bottom: 3rem;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="color: var(--medium-green); font-size: 2rem; margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 1rem;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 2a10 10 0 0 0 0 20"/>
+                        <path d="M2 12h20"/>
+                    </svg>
+                    Monitoreo Satelital para Pastoreo
+                </h3>
+                <p style="color: #666; font-size: 1.1rem;">Seguimiento continuo con satélite - Optimización de pasturas y biomasa</p>
+            </div>
+
+            <div class="pricing-table-container">
+                <table class="pricing-table pricing-table-satellite">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Precio Mensual</th>
+                            <th>Cobertura</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="modalidad-cell">Básico</td>
+                            <td class="precio-cell">$800,000 COP/mes</td>
+                            <td>Hasta 500 ha</td>
+                            <td>Ideal para fincas pequeñas que desean iniciar el monitoreo satelital del pasto y estimar la biomasa disponible de forma automática. Incluye generación de mapas NDVI y alertas básicas.</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Estándar</td>
+                            <td class="precio-cell">$1,500,000 COP/mes</td>
+                            <td>Hasta 1,000 ha</td>
+                            <td>Diseñado para medianos productores que buscan integrar análisis multitemporal de forraje, productividad y humedad del suelo con reportes descargables.</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Premium</td>
+                            <td class="precio-cell">$3,000,000 COP/mes</td>
+                            <td>Hasta 3,000 ha</td>
+                            <td>Orientado a empresas ganaderas con varias unidades productivas. Ofrece monitoreo continuo, estimación de carga animal y reportes personalizados con alta resolución satelital.</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Enterprise</td>
+                            <td class="precio-cell">$5,000,000 COP/mes</td>
+                            <td>Sin límite</td>
+                            <td>Solución integral para redes ganaderas o asociaciones. Incluye plataforma dedicada, integración con APIs y asistencia técnica especializada para gestión avanzada del pasto.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <p class="pricing-note">
