@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapia Digital - Análisis Geoespacial Agrícola</title>
     <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHNX8dARHvVRNnoqD9CRsPOTQu5YY863Y&callback=console.debug&libraries=maps,marker&v=beta"></script>
-    
-    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHNX8dARHvVRNnoqD9CRsPOTQu5YY863Y&callback=console.debug&libraries=maps,marker&v=beta"async defer></script>
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <!-- Google API Client -->
@@ -1671,6 +1669,7 @@
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
+                // TODO: The Drawing library is deprecated. Consider migrating to a different drawing tool.
                 center: { lat: 4.5709, lng: -74.2973 }, // Colombia centro
                 zoom: 6,
                 mapTypeId: 'satellite'
