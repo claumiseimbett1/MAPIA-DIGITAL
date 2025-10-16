@@ -36,6 +36,9 @@
             --text-white: #ffffff;
             --bg-white: #ffffff;
             --border-color: #333333;
+            --section-spacing: 6rem;
+            --section-spacing-small: 4rem;
+            --content-spacing: 3rem;
         }
 
         body {
@@ -43,6 +46,58 @@
             color: var(--text-dark);
             line-height: 1.6;
             font-weight: 400;
+        }
+
+        /* Section Spacing & Separators */
+        section {
+            position: relative;
+        }
+
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 1200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(78, 126, 50, 0.2) 20%, rgba(78, 126, 50, 0.5) 50%, rgba(78, 126, 50, 0.2) 80%, transparent 100%);
+        }
+
+        section.no-separator::after,
+        .hero::after,
+        .detailed-products-section::after {
+            display: none;
+        }
+
+        .section-divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--medium-green) 0%, var(--light-green) 100%);
+            margin: 0 auto 3rem;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+        }
+
+        .section-divider::before {
+            left: -15px;
+        }
+
+        .section-divider::after {
+            right: -15px;
         }
 
         /* Header */
@@ -291,7 +346,7 @@
 
         /* Upload Section */
         .upload-section {
-            padding: 4rem 2rem;
+            padding: var(--section-spacing) 2rem;
             background: var(--bg-white);
             max-width: 1400px;
             margin: 0 auto;
@@ -301,7 +356,7 @@
             text-align: center;
             color: var(--medium-green);
             font-size: 2.8rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -457,7 +512,7 @@
         /* Products & Services Section */
         /* Benefits Section */
         .benefits-section {
-            padding: 4rem 2rem;
+            padding: var(--section-spacing) 2rem;
             max-width: 1400px;
             margin: 0 auto;
             background: var(--bg-white);
@@ -467,7 +522,7 @@
             text-align: center;
             color: var(--medium-green);
             font-size: 2.8rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -574,7 +629,7 @@
 
         /* Products & Services Section */
         .services-section {
-            padding: 4rem 2rem;
+            padding: var(--section-spacing) 2rem;
             max-width: 1400px;
             margin: 0 auto;
             background: var(--bg-white);
@@ -643,7 +698,7 @@
         /* Detailed Products Section */
         .detailed-products-section {
             position: relative;
-            padding: 5rem 2rem;
+            padding: var(--section-spacing) 2rem;
             margin-top: 0;
             overflow: hidden;
         }
@@ -864,7 +919,7 @@
 
         /* Pricing Section */
         .pricing-section {
-            padding: 4rem 2rem;
+            padding: var(--section-spacing) 2rem;
             background: var(--bg-white);
             max-width: 1400px;
             margin: 0 auto;
@@ -1165,7 +1220,7 @@
 
         /* Success Projects Section */
         .success-projects-section {
-            padding: 4rem 2rem;
+            padding: var(--section-spacing) 2rem;
             background: #f5f5f5;
             max-width: 1400px;
             margin: 0 auto;
@@ -1175,7 +1230,7 @@
             text-align: center;
             color: var(--medium-green);
             font-size: 2.8rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
@@ -1526,6 +1581,7 @@
 <!-- Benefits Section -->
     <section id="beneficios" class="benefits-section">
         <h2>Beneficios Clave</h2>
+        <div class="section-divider"></div>
         <div class="benefits-grid">
             <!-- Benefit 1 -->
             <div class="benefit-item">
@@ -1586,6 +1642,7 @@
     <!-- Detailed Products Section -->
     <section id="productos" class="detailed-products-section">
         <h2>Productos y Servicios</h2>
+        <div class="section-divider"></div>
         <p class="section-intro">Soluciones completas de inteligencia geoespacial para optimizar cada aspecto de tu operación agrícola y ganadera</p>
 
         <!-- First row: Products 1 and 2 -->
@@ -1764,6 +1821,7 @@
     <!-- Pricing Section -->
     <section id="precios" class="pricing-section">
         <h2>Precios y Planes</h2>
+        <div class="section-divider"></div>
         <p class="section-subtitle">Soluciones flexibles para cada tipo de operación agrícola</p>
 
         <!-- Drones Pricing Cards -->
@@ -2122,6 +2180,7 @@
     <!-- Upload Section -->
     <section id="cargar" class="upload-section">
         <h2>Solicita tu Análisis</h2>
+        <div class="section-divider"></div>
 
         <!-- Intro Text -->
         <div style="max-width: 900px; margin: 0 auto 3rem; text-align: center;">
@@ -2275,6 +2334,7 @@
     <!-- Success Projects Section -->
     <section class="success-projects-section" style="background: var(--bg-white); border-bottom: 4px solid var(--medium-green);">
         <h2>Proyectos Exitosos</h2>
+        <div class="section-divider"></div>
         <div class="projects-logos-grid">
             <!-- Hypercorn Logo -->
             <div class="project-logo-container" style="width: 200px; height: 120px;">
@@ -2669,15 +2729,61 @@
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('animated');
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.benefit-item, .service-card, .analisis-card, .main-upload-card').forEach(el => {
+        // Fade up animation for cards
+        document.querySelectorAll('.benefit-item, .service-card, .analisis-card, .main-upload-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // Fade up animation for product cards
+        document.querySelectorAll('.detailed-product-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = `opacity 0.7s ease ${index * 0.15}s, transform 0.7s ease ${index * 0.15}s`;
+            observer.observe(el);
+        });
+
+        // Fade up animation for pricing cards
+        document.querySelectorAll('.pricing-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px) scale(0.95)';
+            el.style.transition = `opacity 0.7s ease ${index * 0.1}s, transform 0.7s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // Fade in animation for section titles
+        document.querySelectorAll('section h2').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             observer.observe(el);
+        });
+
+        // Fade in and expand animation for dividers
+        document.querySelectorAll('.section-divider').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'scaleX(0)';
+            el.style.transition = 'opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s';
+            observer.observe(el);
+        });
+
+        // Fade in animation for hero stats
+        document.querySelectorAll('.hero-stat').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'scale(0.8)';
+            el.style.transition = `opacity 0.6s ease ${0.5 + index * 0.2}s, transform 0.6s ease ${0.5 + index * 0.2}s`;
+
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'scale(1)';
+            }, 100);
         });
     </script>
 </body>
