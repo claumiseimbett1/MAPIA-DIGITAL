@@ -836,16 +836,16 @@ nav a:hover {
 }
 
 .product-icon {
-    font-size: 3.5rem;
+    font-size: 3rem;
     color: var(--medium-green);
     margin-bottom: 1rem;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, rgba(78, 126, 50, 0.1) 0%, rgba(93, 181, 58, 0.15) 100%);
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, rgba(78, 126, 50, 0.08) 0%, rgba(93, 181, 58, 0.12) 100%);
     border-radius: 50%;
     position: relative;
 }
