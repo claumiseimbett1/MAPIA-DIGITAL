@@ -1612,9 +1612,10 @@ footer::before {
 }
 
 /* ========================================
-   Statistics Counter Section
+   Statistics Counter Section - TEMPORALMENTE DESACTIVADA
    ======================================== */
 .stats-section {
+    display: none !important; /* OCULTAR COMPLETAMENTE LA SECCIÓN */
     position: relative;
     padding: var(--section-spacing) 2rem;
     background: linear-gradient(135deg, var(--dark-green) 0%, #1a2f14 100%);
