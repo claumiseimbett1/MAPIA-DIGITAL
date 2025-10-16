@@ -34,6 +34,7 @@ let mapCoordinates = null;
 let map = null;
 let drawingManager = null;
 let currentShape = null;
+let contactFormCompleted = false;
 
 // ==========================================
 // MOBILE MENU
@@ -73,9 +74,61 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
+// CONTACT FORM VALIDATION
+// ==========================================
+function validateContactForm() {
+    const userName = document.getElementById('userName').value.trim();
+    const userEmail = document.getElementById('userEmail').value.trim();
+
+    if (!userName || !userEmail) {
+        alert('⚠️ Por favor completa primero el formulario de Información de Contacto (Nombre y Email) antes de cargar archivos o enviar la solicitud.');
+        // Scroll al formulario de contacto
+        document.getElementById('userName').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userEmail)) {
+        alert('⚠️ Por favor ingresa un email válido en el formulario de Información de Contacto.');
+        document.getElementById('userEmail').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return false;
+    }
+
+    contactFormCompleted = true;
+    return true;
+}
+
+// Validar el formulario en tiempo real cuando cambian los campos
+document.addEventListener('DOMContentLoaded', function() {
+    const userName = document.getElementById('userName');
+    const userEmail = document.getElementById('userEmail');
+
+    if (userName && userEmail) {
+        userName.addEventListener('input', function() {
+            if (userName.value.trim() && userEmail.value.trim()) {
+                contactFormCompleted = validateContactForm();
+            }
+        });
+
+        userEmail.addEventListener('input', function() {
+            if (userName.value.trim() && userEmail.value.trim()) {
+                contactFormCompleted = validateContactForm();
+            }
+        });
+    }
+});
+
+// ==========================================
 // FILE UPLOAD HANDLERS
 // ==========================================
 document.getElementById('imageUpload').addEventListener('change', function(e) {
+    // Validar formulario de contacto primero
+    if (!validateContactForm()) {
+        e.target.value = ''; // Limpiar la selección de archivo
+        return;
+    }
+
     const file = e.target.files[0];
     if (file) {
         uploadedFiles.image = file;
@@ -86,6 +139,12 @@ document.getElementById('imageUpload').addEventListener('change', function(e) {
 });
 
 document.getElementById('vectorUpload').addEventListener('change', function(e) {
+    // Validar formulario de contacto primero
+    if (!validateContactForm()) {
+        e.target.value = ''; // Limpiar la selección de archivo
+        return;
+    }
+
     const file = e.target.files[0];
     if (file) {
         uploadedFiles.vector = file;
@@ -99,6 +158,11 @@ document.getElementById('vectorUpload').addEventListener('change', function(e) {
 // GOOGLE MAPS MODAL
 // ==========================================
 function openMapModal() {
+    // Validar formulario de contacto primero
+    if (!validateContactForm()) {
+        return;
+    }
+
     document.getElementById('mapModal').style.display = 'flex';
     if (!map) {
         initMap();
@@ -269,18 +333,17 @@ function initGoogleDrive() {
 // SUBMIT FORM
 // ==========================================
 async function submitAnalysisRequest() {
-    // Validar campos requeridos
-    const userName = document.getElementById('userName').value;
-    const userEmail = document.getElementById('userEmail').value;
-
-    if (!userName || !userEmail) {
-        alert('Por favor completa los campos obligatorios: Nombre y Email');
+    // Validar formulario de contacto completo
+    if (!validateContactForm()) {
         return;
     }
 
+    const userName = document.getElementById('userName').value;
+    const userEmail = document.getElementById('userEmail').value;
+
     // Validar que haya al menos un método de envío
     if (!uploadedFiles.image && !uploadedFiles.vector && !mapCoordinates) {
-        alert('Por favor selecciona al menos un método de envío: archivo o área en el mapa');
+        alert('⚠️ Por favor selecciona al menos un método de envío: carga un archivo de imagen, un archivo vectorial, o selecciona un área en el mapa.');
         return;
     }
 
