@@ -330,6 +330,60 @@ function initGoogleDrive() {
 }
 
 // ==========================================
+// DIAGNÓSTICO GRATUITO REQUEST
+// ==========================================
+async function sendDiagnosticoRequest() {
+    // Pedir nombre y email al usuario
+    const userName = prompt('Por favor ingresa tu nombre completo:');
+    if (!userName || userName.trim() === '') {
+        alert('El nombre es requerido para solicitar el diagnóstico gratuito.');
+        return;
+    }
+
+    const userEmail = prompt('Por favor ingresa tu email:');
+    if (!userEmail || userEmail.trim() === '') {
+        alert('El email es requerido para solicitar el diagnóstico gratuito.');
+        return;
+    }
+
+    // Validar formato de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userEmail.trim())) {
+        alert('Por favor ingresa un email válido.');
+        return;
+    }
+
+    const userPhone = prompt('Por favor ingresa tu teléfono (opcional):') || 'No especificado';
+
+    try {
+        // Preparar datos para EmailJS
+        const templateParams = {
+            user_name: userName.trim(),
+            user_email: userEmail.trim(),
+            user_phone: userPhone.trim(),
+            hectares: 'No especificado',
+            file_links: 'Solicitud de diagnóstico gratuito - No se adjuntaron archivos',
+            map_coordinates: 'No aplica',
+            comments: 'El usuario solicitó un diagnóstico y cotización gratuita desde la sección de Diagnóstico Gratuito.'
+        };
+
+        // Enviar email con EmailJS
+        await emailjs.send(
+            CONFIG.emailjs.serviceId,
+            CONFIG.emailjs.templateId,
+            templateParams
+        );
+
+        // Éxito
+        alert('¡Solicitud de diagnóstico enviada exitosamente! Recibirás una respuesta en tu email en menos de 24 horas.');
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un error al enviar la solicitud. Por favor intenta de nuevo o contáctanos directamente a contacto@mapiadigital.com');
+    }
+}
+
+// ==========================================
 // SUBMIT FORM
 // ==========================================
 async function submitAnalysisRequest() {
