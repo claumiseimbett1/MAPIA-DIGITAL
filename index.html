@@ -199,6 +199,53 @@
             line-height: 1.5;
         }
 
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 2px solid var(--primary-yellow);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .hero-stat:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 30px rgba(255, 253, 83, 0.3);
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .hero-stat-label {
+            font-size: 1rem;
+            color: var(--text-white);
+            font-weight: 400;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
         .cta-button {
             background: var(--light-green);
             color: var(--text-white);
@@ -219,6 +266,27 @@
             background: var(--primary-yellow) !important;
             color: var(--primary-black) !important;
             border-color: var(--primary-yellow) !important;
+        }
+
+        .cta-button-secondary {
+            background: transparent;
+            color: var(--text-white);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--text-white);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button-secondary:hover {
+            transform: translateY(-3px);
+            background: var(--text-white);
+            color: var(--dark-green);
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
         }
 
         /* Upload Section */
@@ -319,8 +387,45 @@
 
         .analisis-icon {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--medium-green);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(135deg, rgba(78, 126, 50, 0.08) 0%, rgba(93, 181, 58, 0.12) 100%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .analisis-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--light-green) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+
+        .analisis-icon svg {
+            position: relative;
+            z-index: 1;
+        }
+
+        .analisis-card:hover .analisis-icon {
+            transform: scale(1.15) rotate(5deg);
+            color: var(--text-white);
+        }
+
+        .analisis-card:hover .analisis-icon::before {
+            opacity: 1;
         }
 
         .analisis-card h4 {
@@ -410,15 +515,46 @@
         }
 
         .benefit-item:hover .benefit-icon {
-            transform: scale(1.15);
-            color: var(--light-green);
+            transform: scale(1.15) rotate(-5deg);
+            color: var(--text-white);
+        }
+
+        .benefit-item:hover .benefit-icon::before {
+            opacity: 1;
         }
 
         .benefit-icon {
             font-size: 3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--medium-green);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            margin-left: auto;
+            margin-right: auto;
+            background: linear-gradient(135deg, rgba(78, 126, 50, 0.08) 0%, rgba(93, 181, 58, 0.12) 100%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .benefit-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--light-green) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: 0;
+        }
+
+        .benefit-icon svg {
+            position: relative;
+            z-index: 1;
         }
 
         .benefit-item h3 {
@@ -589,12 +725,34 @@
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 3px solid transparent;
+            position: relative;
         }
 
         .detailed-product-card:hover {
             transform: translateY(-10px);
             border-color: var(--primary-yellow);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, var(--primary-yellow) 0%, #ffd700 100%);
+            color: var(--primary-black);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 253, 83, 0.5);
+            z-index: 10;
+        }
+
+        .product-badge.tech-badge {
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--medium-green) 100%);
+            color: var(--text-white);
         }
 
         .product-image-container {
@@ -626,15 +784,44 @@
         }
 
         .product-icon {
-            font-size: 2rem;
+            font-size: 3.5rem;
             color: var(--medium-green);
-            margin-bottom: 0.8rem;
-            transition: all 0.3s;
+            margin-bottom: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(78, 126, 50, 0.1) 0%, rgba(93, 181, 58, 0.15) 100%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .product-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--light-green) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
         }
 
         .detailed-product-card:hover .product-icon {
-            transform: scale(1.1);
-            color: var(--light-green);
+            transform: scale(1.15) rotate(5deg);
+            color: var(--text-white);
+        }
+
+        .detailed-product-card:hover .product-icon::before {
+            opacity: 1;
+        }
+
+        .product-icon svg {
+            position: relative;
+            z-index: 1;
         }
 
         .product-content h3 {
@@ -1080,6 +1267,33 @@
                 font-size: 1.4rem;
             }
 
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .hero-stat {
+                padding: 1rem 1.5rem;
+            }
+
+            .hero-stat-number {
+                font-size: 2rem;
+            }
+
+            .hero-stat-label {
+                font-size: 0.9rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-button,
+            .cta-button-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
             header {
                 padding: 1rem;
             }
@@ -1284,7 +1498,28 @@
             <h1>MAPIA DIGITAL</h1>
             <p>Inteligencia geoespacial para decisiones más rentables</p>
             <p class="hero-subtitle">Convierte imágenes satelitales y de dron en mapas inteligentes que te ahorran costos y aumentan productividad</p>
-            <a href="#diagnostico" class="cta-button" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Solicita un diagnóstico gratuito</a>
+
+            <!-- Hero Stats -->
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">30%</span>
+                    <span class="hero-stat-label">Ahorro en agroinsumos</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">15%</span>
+                    <span class="hero-stat-label">Aumento de productividad</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">24h</span>
+                    <span class="hero-stat-label">Tiempo de respuesta</span>
+                </div>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="hero-cta-group">
+                <a href="#diagnostico" class="cta-button" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Solicita un diagnóstico gratuito</a>
+                <a href="#productos" class="cta-button-secondary" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Ver Productos</a>
+            </div>
         </div>
     </section>
 
@@ -1357,6 +1592,7 @@
         <div class="detailed-products-grid two-columns">
             <!-- Product 1 -->
             <div class="detailed-product-card">
+                <span class="product-badge">Más Solicitado</span>
                 <div class="product-image-container">
                     <img src="img/1.png" alt="Procesamiento Automático de Imágenes">
                 </div>
@@ -1406,6 +1642,7 @@
         <div class="detailed-products-grid two-columns">
             <!-- Product 3 -->
             <div class="detailed-product-card">
+                <span class="product-badge tech-badge">Tecnología IA</span>
                 <div class="product-image-container">
                     <img src="img/3.png" alt="Conteo de Árboles y Frutos">
                 </div>
@@ -1458,6 +1695,7 @@
         <div class="detailed-products-grid single-centered">
             <!-- Product 5 -->
             <div class="detailed-product-card">
+                <span class="product-badge tech-badge">Certificación</span>
                 <div class="product-image-container">
                     <img src="img/5.png" alt="Capacitación y Asesoría en Big Data e IA">
                 </div>
