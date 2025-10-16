@@ -1436,6 +1436,176 @@
             color: var(--primary-yellow);
         }
 
+        /* Before/After Comparison Slider */
+        .comparison-section {
+            padding: var(--section-spacing) 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .comparison-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .comparison-intro {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .comparison-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 4px solid var(--medium-green);
+        }
+
+        .comparison-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 66.67%; /* 3:2 aspect ratio */
+            overflow: hidden;
+            background: #000;
+        }
+
+        .comparison-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comparison-before {
+            z-index: 2;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+        }
+
+        .comparison-after {
+            z-index: 1;
+        }
+
+        .comparison-slider {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-yellow);
+            z-index: 3;
+            cursor: ew-resize;
+            transform: translateX(-2px);
+        }
+
+        .comparison-slider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: var(--primary-yellow);
+            border-radius: 50%;
+            border: 3px solid var(--text-white);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .comparison-slider::after {
+            content: '⟷';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--dark-green);
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .comparison-label {
+            position: absolute;
+            top: 20px;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--text-white);
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 5px;
+            z-index: 4;
+            backdrop-filter: blur(10px);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .comparison-label.before {
+            left: 20px;
+        }
+
+        .comparison-label.after {
+            right: 20px;
+            background: rgba(78, 126, 50, 0.9);
+        }
+
+        .comparison-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .comparison-feature {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-white);
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .comparison-feature:hover {
+            transform: translateY(-5px);
+            border-color: var(--light-green);
+            box-shadow: 0 10px 30px rgba(78, 126, 50, 0.15);
+        }
+
+        .comparison-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-green);
+        }
+
+        .comparison-feature h3 {
+            color: var(--medium-green);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .comparison-feature p {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
         .agtech-link {
             display: inline-block;
             margin: 1rem 0;
@@ -1678,6 +1848,25 @@
 
             .social-links {
                 justify-content: center;
+            }
+
+            .comparison-features {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .comparison-slider::before {
+                width: 40px;
+                height: 40px;
+            }
+
+            .comparison-slider::after {
+                font-size: 1.2rem;
+            }
+
+            .comparison-label {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
             }
         }
     </style>
@@ -1942,6 +2131,57 @@
                         <li>Venta de modelos pre-entrenados</li>    
                     </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before/After Comparison Section -->
+    <section class="comparison-section">
+        <h2>Resultados Reales de Nuestros Análisis</h2>
+        <div class="section-divider"></div>
+        <p class="comparison-intro">
+            Arrastra el control deslizante para ver la transformación de una imagen satelital básica
+            en un mapa de zonificación NDVI detallado
+        </p>
+
+        <div class="comparison-container">
+            <div class="comparison-wrapper">
+                <!-- Before Image (will use a placeholder or actual image) -->
+                <img src="img/1.png" alt="Imagen Original" class="comparison-image comparison-before" id="beforeImage">
+
+                <!-- After Image (will use a placeholder or actual image) -->
+                <img src="img/2.png" alt="Análisis NDVI" class="comparison-image comparison-after" id="afterImage">
+
+                <!-- Labels -->
+                <div class="comparison-label before">Original</div>
+                <div class="comparison-label after">Análisis NDVI</div>
+
+                <!-- Slider Handle -->
+                <div class="comparison-slider" id="comparisonSlider"></div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="comparison-features">
+            <div class="comparison-feature">
+                <div class="comparison-feature-icon">🎯</div>
+                <h3>Precisión Milimétrica</h3>
+                <p>Identificación exacta de zonas con diferente potencial productivo para aplicación variable</p>
+            </div>
+            <div class="comparison-feature">
+                <div class="comparison-feature-icon">📊</div>
+                <h3>Datos Accionables</h3>
+                <p>Mapas de zonificación listos para usar en equipos de aplicación variable</p>
+            </div>
+            <div class="comparison-feature">
+                <div class="comparison-feature-icon">⚡</div>
+                <h3>Procesamiento Rápido</h3>
+                <p>Análisis completo en menos de 24 horas desde la carga de imágenes</p>
+            </div>
+            <div class="comparison-feature">
+                <div class="comparison-feature-icon">💰</div>
+                <h3>Ahorro Inmediato</h3>
+                <p>Reduce hasta 30% el uso de agroinsumos aplicando solo donde se necesita</p>
             </div>
         </div>
     </section>
@@ -3034,6 +3274,105 @@
                 el.style.opacity = '1';
                 el.style.transform = 'scale(1)';
             }, 100);
+        });
+
+        // ==========================================
+        // BEFORE/AFTER COMPARISON SLIDER
+        // ==========================================
+        const comparisonSlider = document.getElementById('comparisonSlider');
+        const beforeImage = document.getElementById('beforeImage');
+        const comparisonWrapper = document.querySelector('.comparison-wrapper');
+
+        if (comparisonSlider && beforeImage && comparisonWrapper) {
+            let isDragging = false;
+
+            // Function to update slider position
+            function updateSlider(percentage) {
+                // Constrain percentage between 0 and 100
+                percentage = Math.max(0, Math.min(100, percentage));
+
+                // Update slider position
+                comparisonSlider.style.left = percentage + '%';
+
+                // Update clip-path for before image
+                beforeImage.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+            }
+
+            // Mouse/Touch event handlers
+            function startDragging(e) {
+                isDragging = true;
+                e.preventDefault();
+            }
+
+            function stopDragging() {
+                isDragging = false;
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+
+                const rect = comparisonWrapper.getBoundingClientRect();
+                const x = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left;
+                const percentage = (x / rect.width) * 100;
+
+                updateSlider(percentage);
+            }
+
+            // Mouse events
+            comparisonSlider.addEventListener('mousedown', startDragging);
+            document.addEventListener('mouseup', stopDragging);
+            document.addEventListener('mousemove', onMove);
+
+            // Touch events
+            comparisonSlider.addEventListener('touchstart', startDragging);
+            document.addEventListener('touchend', stopDragging);
+            document.addEventListener('touchmove', onMove);
+
+            // Click on wrapper to move slider
+            comparisonWrapper.addEventListener('click', (e) => {
+                if (e.target === comparisonSlider || e.target.parentElement === comparisonSlider) return;
+
+                const rect = comparisonWrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percentage = (x / rect.width) * 100;
+
+                updateSlider(percentage);
+            });
+
+            // Initial animation - slide from left to right
+            setTimeout(() => {
+                let currentPosition = 0;
+                const targetPosition = 50;
+                const duration = 1500;
+                const startTime = Date.now();
+
+                function animate() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function (ease-in-out)
+                    const easeProgress = progress < 0.5
+                        ? 2 * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+                    currentPosition = easeProgress * targetPosition;
+                    updateSlider(currentPosition);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+
+                animate();
+            }, 500);
+        }
+
+        // Fade in animation for comparison features
+        document.querySelectorAll('.comparison-feature').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+            observer.observe(el);
         });
     </script>
 </body>
