@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapia Digital - Análisis Geoespacial Agrícola</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Google Maps API -->
      <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGkLHin7JWzltX2JXshNq3Gx_VpogSeVE&libraries=maps,marker,drawing&v=beta">
      </script>
@@ -11,8 +15,8 @@
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-    
-    
+
+
     <!-- Google API Client -->
     <script src="https://apis.google.com/js/api.js"></script>
     <style>
@@ -35,9 +39,10 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             color: var(--text-dark);
             line-height: 1.6;
+            font-weight: 400;
         }
 
         /* Header */
@@ -174,7 +179,8 @@
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             color: var(--text-yellow);
-            font-weight: bold;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
         .hero p {
@@ -182,13 +188,14 @@
             margin-bottom: 2rem;
             color: var(--text-yellow);
             line-height: 1.4;
+            font-weight: 400;
         }
 
         .hero .hero-subtitle {
             font-size: 1.9rem;
             margin-bottom: 2.5rem;
             color: var(--text-yellow);
-            font-weight: 500;
+            font-weight: 400;
             line-height: 1.5;
         }
 
@@ -225,8 +232,10 @@
         .upload-section h2 {
             text-align: center;
             color: var(--medium-green);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .upload-main-options {
@@ -352,8 +361,10 @@
         .benefits-section h2 {
             text-align: center;
             color: var(--medium-green);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .benefits-grid {
@@ -413,13 +424,16 @@
         .benefit-item h3 {
             color: var(--primary-black);
             margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
         .benefit-item p {
             color: #666;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 300;
         }
 
         /* Products & Services Section */
@@ -527,22 +541,24 @@
         .detailed-products-section h2 {
             text-align: center;
             color: var(--primary-yellow);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
             position: relative;
             z-index: 2;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .detailed-products-section .section-intro {
             text-align: center;
             color: var(--text-white);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             max-width: 1000px;
             margin: 0 auto 4rem;
             line-height: 1.8;
             position: relative;
             z-index: 2;
-            font-weight: 500;
+            font-weight: 300;
         }
 
         .detailed-products-grid {
@@ -623,9 +639,10 @@
 
         .product-content h3 {
             color: var(--medium-green);
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             margin-bottom: 0.8rem;
-            font-weight: bold;
+            font-weight: 600;
+            line-height: 1.3;
         }
 
         .product-description {
@@ -669,8 +686,10 @@
         .pricing-section h2 {
             text-align: center;
             color: var(--medium-green);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .pricing-section .section-subtitle {
@@ -681,6 +700,7 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 300;
         }
 
         .pricing-table-container {
@@ -790,8 +810,10 @@
         .success-projects-section h2 {
             text-align: center;
             color: var(--medium-green);
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .projects-logos-grid {
@@ -840,6 +862,12 @@
         footer h3 {
             color: var(--text-white);
             margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        footer p {
+            font-weight: 300;
         }
 
         .agtech-link {
