@@ -228,6 +228,27 @@ nav a:hover {
     letter-spacing: -1px;
 }
 
+/* Hero Logo Styles */
+.hero-logo {
+    margin-bottom: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.hero-logo img {
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(255, 253, 83, 0.4))
+            drop-shadow(0 10px 40px rgba(0, 0, 0, 0.6));
+    transition: all 0.3s ease;
+}
+
+.hero-logo img:hover {
+    filter: drop-shadow(0 0 50px rgba(255, 253, 83, 0.6))
+            drop-shadow(0 10px 40px rgba(0, 0, 0, 0.8));
+    transform: scale(1.05);
+}
+
 .hero p {
     font-size: 1.6rem;
     margin-bottom: 2rem;
@@ -742,11 +763,12 @@ nav a:hover {
     color: var(--text-white);
     font-size: 1.3rem;
     max-width: 1000px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 5rem;
     line-height: 1.8;
     position: relative;
     z-index: 2;
     font-weight: 300;
+    padding: 0 2rem;
 }
 
 .detailed-products-grid {
