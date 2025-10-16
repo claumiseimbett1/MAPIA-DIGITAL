@@ -1606,6 +1606,164 @@
             line-height: 1.6;
         }
 
+        /* Statistics Counter Section */
+        .stats-section {
+            position: relative;
+            padding: var(--section-spacing) 2rem;
+            background: linear-gradient(135deg, var(--dark-green) 0%, #1a2f14 100%);
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,253,83,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .stats-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .stats-header h2 {
+            color: var(--primary-yellow);
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .stats-header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 253, 83, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-yellow) 0%, var(--light-green) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 20px 50px rgba(255, 253, 83, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: all 0.4s;
+            color: var(--primary-yellow);
+        }
+
+        .stat-icon svg {
+            stroke: var(--primary-yellow);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -2px;
+        }
+
+        .stat-label {
+            color: var(--text-white);
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .stats-cta {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .stats-cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--primary-yellow);
+            color: var(--dark-green);
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-yellow);
+            box-shadow: 0 10px 30px rgba(255, 253, 83, 0.3);
+        }
+
+        .stats-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 253, 83, 0.5);
+            background: var(--text-white);
+        }
+
         .agtech-link {
             display: inline-block;
             margin: 1rem 0;
@@ -1868,6 +2026,23 @@
                 font-size: 0.85rem;
                 padding: 0.6rem 1rem;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stat-number {
+                font-size: 3rem;
+            }
+
+            .stat-icon {
+                font-size: 2.5rem;
+            }
+
+            .stats-header h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -1992,7 +2167,76 @@
         </div>
     </section>
 
-    
+    <!-- Statistics Counter Section -->
+    <section class="stats-section">
+        <div class="stats-content">
+            <div class="stats-header">
+                <h2>Nuestro Impacto en Números</h2>
+                <p>Resultados reales que demuestran la efectividad de nuestras soluciones AgTech</p>
+            </div>
+
+            <div class="stats-grid">
+                <!-- Stat 1: Hectáreas Analizadas -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number" data-target="10000">0</div>
+                    <div class="stat-label">Hectáreas Analizadas</div>
+                    <div class="stat-description">Superficie total procesada con tecnología geoespacial</div>
+                </div>
+
+                <!-- Stat 2: Clientes Activos -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number" data-target="150" data-suffix="+">0</div>
+                    <div class="stat-label">Clientes Activos</div>
+                    <div class="stat-description">Productores que confían en nuestras soluciones</div>
+                </div>
+
+                <!-- Stat 3: Análisis Completados -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number" data-target="500" data-suffix="+">0</div>
+                    <div class="stat-label">Análisis Completados</div>
+                    <div class="stat-description">Mapas de zonificación y conteos entregados</div>
+                </div>
+
+                <!-- Stat 4: Ahorro Promedio -->
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number" data-target="30" data-suffix="%">0</div>
+                    <div class="stat-label">Ahorro Promedio</div>
+                    <div class="stat-description">Reducción en uso de agroinsumos</div>
+                </div>
+            </div>
+
+            <div class="stats-cta">
+                <a href="#diagnostico" class="stats-cta-button">Comienza tu Diagnóstico Gratuito</a>
+            </div>
+        </div>
+    </section>
+
+
 
 <!-- Products & Services - REMOVED/HIDDEN -->
     <!-- This section has been replaced by the detailed products section below -->
@@ -2164,22 +2408,41 @@
         <!-- Features Grid -->
         <div class="comparison-features">
             <div class="comparison-feature">
-                <div class="comparison-feature-icon">🎯</div>
+                <div class="comparison-feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
                 <h3>Precisión Milimétrica</h3>
                 <p>Identificación exacta de zonas con diferente potencial productivo para aplicación variable</p>
             </div>
             <div class="comparison-feature">
-                <div class="comparison-feature-icon">📊</div>
+                <div class="comparison-feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"/>
+                        <line x1="12" y1="20" x2="12" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="14"/>
+                    </svg>
+                </div>
                 <h3>Datos Accionables</h3>
                 <p>Mapas de zonificación listos para usar en equipos de aplicación variable</p>
             </div>
             <div class="comparison-feature">
-                <div class="comparison-feature-icon">⚡</div>
+                <div class="comparison-feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                </div>
                 <h3>Procesamiento Rápido</h3>
                 <p>Análisis completo en menos de 24 horas desde la carga de imágenes</p>
             </div>
             <div class="comparison-feature">
-                <div class="comparison-feature-icon">💰</div>
+                <div class="comparison-feature-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </div>
                 <h3>Ahorro Inmediato</h3>
                 <p>Reduce hasta 30% el uso de agroinsumos aplicando solo donde se necesita</p>
             </div>
@@ -3372,6 +3635,64 @@
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+            observer.observe(el);
+        });
+
+        // ==========================================
+        // ANIMATED STATISTICS COUNTER
+        // ==========================================
+        function animateCounter(element, target, suffix = '', duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16); // 60fps
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+
+                // Format numbers with commas for thousands
+                const displayValue = Math.floor(current).toLocaleString('es-CO');
+                element.textContent = displayValue + suffix;
+            }, 16);
+        }
+
+        // Observer for stats section
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+
+                    // Animate all stat numbers in this section
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach((statNumber, index) => {
+                        const target = parseInt(statNumber.getAttribute('data-target'));
+                        const suffix = statNumber.getAttribute('data-suffix') || '';
+
+                        // Delay each counter slightly for staggered effect
+                        setTimeout(() => {
+                            animateCounter(statNumber, target, suffix, 2000);
+                        }, index * 200);
+                    });
+                }
+            });
+        }, {
+            threshold: 0.3
+        });
+
+        // Observe stats section
+        const statsSection = document.querySelector('.stats-section');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Fade in animation for stat cards
+        document.querySelectorAll('.stat-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px) scale(0.95)';
+            el.style.transition = `opacity 0.7s ease ${index * 0.15}s, transform 0.7s ease ${index * 0.15}s`;
             observer.observe(el);
         });
     </script>
