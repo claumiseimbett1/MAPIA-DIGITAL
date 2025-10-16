@@ -532,8 +532,9 @@ document.querySelectorAll('.comparison-feature').forEach((el, index) => {
 });
 
 // ==========================================
-// ANIMATED STATISTICS COUNTER
+// ANIMATED STATISTICS COUNTER - TEMPORALMENTE DESACTIVADO
 // ==========================================
+/*
 function animateCounter(element, target, suffix = '', duration = 2000) {
     const start = 0;
     const increment = target / (duration / 16); // 60fps
@@ -588,3 +589,4 @@ document.querySelectorAll('.stat-card').forEach((el, index) => {
     el.style.transition = `opacity 0.7s ease ${index * 0.15}s, transform 0.7s ease ${index * 0.15}s`;
     observer.observe(el);
 });
+*/
