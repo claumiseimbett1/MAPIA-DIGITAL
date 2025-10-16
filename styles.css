@@ -1077,6 +1077,13 @@ nav a:hover {
     margin: 0 auto 5rem;
 }
 
+/* Satellite cards - 2x2 layout */
+.pricing-cards-container.satellite-row {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+}
+
 .pricing-card {
     background: var(--bg-white);
     border-radius: 15px;
@@ -2525,6 +2532,11 @@ nav a:hover::after {
     .pricing-cards-container {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+
+    .pricing-cards-container.satellite-row {
+        grid-template-columns: 1fr;
+        max-width: 100%;
     }
 
     .pricing-card.featured {
