@@ -3,47 +3,1166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Primary Meta Tags -->
-    <title>Mapia Digital - Análisis Geoespacial Agrícola | Optimiza tu Producción</title>
-    <meta name="title" content="Mapia Digital - Análisis Geoespacial Agrícola | Optimiza tu Producción">
-    <meta name="description" content="Convierte imágenes satelitales y de dron en mapas inteligentes. Ahorra hasta 30% en agroinsumos y aumenta tu productividad en 15%. Análisis geoespacial profesional para agricultura de precisión.">
-    <meta name="keywords" content="agricultura de precisión, análisis geoespacial, imágenes satelitales, drones agrícolas, mapas agrícolas, NDVI, zonificación agrícola, conteo de árboles, AgTech">
-    <meta name="author" content="Mapia Digital">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mapiadigital.com/">
-    <meta property="og:title" content="Mapia Digital - Análisis Geoespacial Agrícola">
-    <meta property="og:description" content="Convierte imágenes satelitales y de dron en mapas inteligentes. Ahorra hasta 30% en agroinsumos y aumenta tu productividad en 15%.">
-    <meta property="og:image" content="https://mapiadigital.com/img/Fondo.png">
-    <meta property="og:locale" content="es_ES">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://mapiadigital.com/">
-    <meta property="twitter:title" content="Mapia Digital - Análisis Geoespacial Agrícola">
-    <meta property="twitter:description" content="Convierte imágenes satelitales y de dron en mapas inteligentes. Ahorra hasta 30% en agroinsumos y aumenta tu productividad.">
-    <meta property="twitter:image" content="https://mapiadigital.com/img/Fondo.png">
-
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#2d4a1f">
-    <meta name="msapplication-TileColor" content="#2d4a1f">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Mapia Digital - Análisis Geoespacial Agrícola</title>
     <!-- Google Maps API -->
      <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGkLHin7JWzltX2JXshNq3Gx_VpogSeVE&libraries=maps,marker,drawing&v=beta">
      </script>
-     <!-- EmailJS -->
+     <link rel="stylesheet" href="./style.css"/>
+    <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    
+    
     <!-- Google API Client -->
     <script src="https://apis.google.com/js/api.js"></script>
-    <!-- External Stylesheet -->
-    <link rel="stylesheet" href="styles.css?v=4.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-yellow: #fffd53;
+            --primary-black: #000000;
+            --dark-green: #2d4a1f;
+            --medium-green: #4e7e32;
+            --light-green: #5db53a;
+            --text-yellow: #fffd53;
+            --text-white: #ffffff;
+            --bg-white: #ffffff;
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--dark-green);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .logo-container {
+            width: 180px;
+            height: 60px;
+            background: var(--bg-white);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-yellow);
+            padding: 0.5rem;
+        }
+
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-white);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--primary-yellow);
+            color: var(--dark-green);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-white);
+            margin: 3px 0;
+            transition: all 0.3s;
+            border-radius: 3px;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: var(--text-yellow);
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--text-yellow);
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            color: var(--text-yellow);
+            line-height: 1.4;
+        }
+
+        .hero .hero-subtitle {
+            font-size: 1.9rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-yellow);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            background: var(--light-green);
+            color: var(--text-white);
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--light-green);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255, 253, 83, 0.6);
+            background: var(--primary-yellow) !important;
+            color: var(--primary-black) !important;
+            border-color: var(--primary-yellow) !important;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .upload-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .upload-main-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .main-upload-card {
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 3px solid var(--medium-green);
+        }
+
+        .main-upload-card.info-card {
+            cursor: default;
+        }
+
+        .main-upload-card.info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--medium-green);
+            box-shadow: 0 5px 15px rgba(78, 126, 50, 0.15);
+        }
+
+        .main-upload-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--medium-green);
+        }
+
+        .main-upload-card h3 {
+            color: var(--medium-green);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .main-upload-card p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Analisis MAPIA Subsection */
+        .analisis-mapia {
+            background: #f9f9f9;
+            padding: 3rem 2rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+        }
+
+        .analisis-mapia h3 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .analisis-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .analisis-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        .analisis-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--medium-green);
+        }
+
+        .analisis-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+        }
+
+        .analisis-card h4 {
+            color: var(--primary-black);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .analisis-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .upload-placeholder {
+            background: var(--bg-white);
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-placeholder:hover {
+            background: var(--primary-yellow);
+            border-color: var(--primary-black);
+        }
+
+        /* Products & Services Section */
+        /* Benefits Section */
+        .benefits-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-white);
+        }
+
+        .benefits-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefit-item {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 5px;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 126, 50, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .benefit-item:hover::before {
+            left: 100%;
+        }
+
+        .benefit-item:hover {
+            border-color: var(--light-green);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(78, 126, 50, 0.25);
+        }
+
+        .benefit-item:hover .benefit-icon {
+            transform: scale(1.15);
+            color: var(--light-green);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .benefit-item h3 {
+            color: var(--primary-black);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .benefit-item p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Products & Services Section */
+        .services-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-white);
+        }
+
+        .services-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 5px;
+            color: var(--primary-black);
+            transition: all 0.3s;
+            border: 2px solid var(--border-color);
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-yellow);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: var(--primary-black);
+        }
+
+        .benefits-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .benefits-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #666;
+        }
+
+        .benefits-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        /* Detailed Products Section */
+        .detailed-products-section {
+            position: relative;
+            padding: 5rem 2rem;
+            margin-top: 0;
+            overflow: hidden;
+        }
+
+        .detailed-products-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('img/Fondo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 1;
+            z-index: 0;
+        }
+
+        .detailed-products-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .detailed-products-section h2 {
+            text-align: center;
+            color: var(--primary-yellow);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detailed-products-section .section-intro {
+            text-align: center;
+            color: var(--text-white);
+            font-size: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        .detailed-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detailed-products-grid.two-columns {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 1000px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .detailed-products-grid.single-centered {
+            grid-template-columns: 1fr;
+            max-width: 480px;
+            margin: 2.5rem auto 0;
+        }
+
+        .detailed-product-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid transparent;
+        }
+
+        .detailed-product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-image-placeholder {
+            color: var(--medium-green);
+            font-size: 1rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-icon {
+            font-size: 2rem;
+            color: var(--medium-green);
+            margin-bottom: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .detailed-product-card:hover .product-icon {
+            transform: scale(1.1);
+            color: var(--light-green);
+        }
+
+        .product-content h3 {
+            color: var(--medium-green);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--light-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-section .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-table-container {
+            overflow-x: auto;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pricing-table thead {
+            background: var(--medium-green);
+            color: var(--text-white);
+        }
+
+        .pricing-table th {
+            padding: 1.5rem 1rem;
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-bottom: 2px solid var(--light-green);
+        }
+
+        .pricing-table td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .pricing-table tbody tr:hover {
+            background: #f9f9f9;
+            transition: all 0.3s;
+        }
+
+        .pricing-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pricing-table .modalidad-cell {
+            font-weight: bold;
+            color: var(--medium-green);
+            font-size: 1.1rem;
+        }
+
+        .pricing-table .precio-cell {
+            font-weight: bold;
+            color: var(--light-green);
+            font-size: 1.15rem;
+        }
+
+        .pricing-note {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        .pricing-table-drone thead {
+            background: var(--medium-green);
+        }
+
+        .pricing-table-satellite thead {
+            background: var(--medium-green);
+        }
+
+        .pricing-table-drone tbody tr:hover {
+            background: rgba(93, 181, 58, 0.05);
+        }
+
+        .pricing-table-satellite tbody tr:hover {
+            background: rgba(93, 181, 58, 0.05);
+        }
+
+        .pricing-table-drone .modalidad-cell {
+            color: var(--medium-green);
+        }
+
+        .pricing-table-satellite .modalidad-cell {
+            color: var(--medium-green);
+        }
+
+        .pricing-table-drone .precio-cell {
+            color: var(--light-green);
+        }
+
+        .pricing-table-satellite .precio-cell {
+            color: var(--light-green);
+        }
+
+        /* Success Projects Section */
+        .success-projects-section {
+            padding: 4rem 2rem;
+            background: #f5f5f5;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .success-projects-section h2 {
+            text-align: center;
+            color: var(--medium-green);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .projects-logos-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5rem;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .project-logo-container {
+            width: 350px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: all 0.4s ease;
+        }
+
+        .project-logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(1.3);
+            transition: all 0.4s ease;
+            opacity: 0.4;
+        }
+
+        .project-logo-container:hover img {
+            filter: grayscale(0%) brightness(1);
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-green);
+            color: var(--text-white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer h3 {
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .agtech-link {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.8rem 2rem;
+            background: var(--primary-yellow);
+            color: var(--dark-green);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-yellow);
+        }
+
+        .agtech-link:hover {
+            transform: scale(1.05);
+            background: transparent;
+            color: var(--primary-yellow);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                height: auto;
+                min-height: 500px;
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-button {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+
+            header {
+                padding: 1rem;
+            }
+
+            nav {
+                flex-wrap: wrap;
+            }
+
+            .logo-container {
+                width: 120px;
+                height: 50px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                order: 2;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--dark-green);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+                z-index: 1000;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links a {
+                font-size: 1.3rem;
+                padding: 1rem 2rem;
+                width: 80%;
+                text-align: center;
+            }
+
+            .logo-container:last-child {
+                display: none;
+            }
+
+            /* Sections spacing */
+            .benefits-section,
+            .services-section,
+            .pricing-section,
+            .upload-section,
+            .success-projects-section {
+                padding: 3rem 1rem;
+            }
+
+            .benefits-section h2,
+            .services-section h2,
+            .pricing-section h2,
+            .upload-section h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .upload-options {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .benefit-item {
+                padding: 1.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .analisis-options {
+                grid-template-columns: 1fr;
+            }
+
+            .upload-main-options {
+                grid-template-columns: 1fr;
+            }
+
+            .detailed-products-grid,
+            .detailed-products-grid.two-columns,
+            .detailed-products-grid.single-centered {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .detailed-products-section {
+                padding: 3rem 1rem;
+            }
+
+            .detailed-products-section h2 {
+                font-size: 2rem;
+            }
+
+            .detailed-products-section .section-intro {
+                font-size: 1.1rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .product-content {
+                padding: 1.5rem;
+            }
+
+            .product-content h3 {
+                font-size: 1.2rem;
+            }
+
+            /* Hypersatellite section */
+            #hypersatellite {
+                padding: 3rem 1rem;
+            }
+
+            #hypersatellite h3 {
+                font-size: 1.8rem;
+            }
+
+            #hypersatellite img {
+                max-height: 100px;
+            }
+
+            /* Certification section */
+            #certificacion {
+                padding: 3rem 1rem;
+            }
+
+            #certificacion h3 {
+                font-size: 1.6rem;
+            }
+
+            #certificacion p {
+                font-size: 1rem;
+            }
+
+            #certificacion p[style*="font-size: 1.5rem"] {
+                font-size: 1.2rem !important;
+                letter-spacing: 0.5px !important;
+            }
+
+            .projects-logos-grid {
+                gap: 3rem;
+            }
+
+            .project-logo-container {
+                width: 200px;
+                height: 100px;
+            }
+
+            .pricing-table {
+                font-size: 0.85rem;
+            }
+
+            .pricing-table th,
+            .pricing-table td {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.85rem;
+            }
+
+            .pricing-table th {
+                font-size: 0.9rem;
+            }
+
+            .pricing-table .modalidad-cell {
+                font-size: 0.95rem;
+            }
+
+            .pricing-table .precio-cell {
+                font-size: 0.95rem;
+            }
+
+            .pricing-section h3 {
+                font-size: 1.5rem !important;
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .pricing-section h3 svg {
+                width: 30px !important;
+                height: 30px !important;
+            }
+
+            .pricing-section .section-subtitle {
+                font-size: 1rem;
+            }
+
+            /* Footer */
+            footer {
+                padding: 2rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            footer h3 {
+                font-size: 1.5rem;
+            }
+
+            footer p {
+                font-size: 0.95rem;
+            }
+
+            /* Map Modal */
+            #mapModal > div {
+                width: 95%;
+                height: 90%;
+            }
+
+            #mapModal button {
+                font-size: 0.9rem;
+                padding: 0.7rem 1.5rem;
+            }
+
+            /* Form inputs */
+            .upload-section input,
+            .upload-section textarea {
+                font-size: 1rem;
+            }
+
+            .analisis-mapia {
+                padding: 2rem 1rem;
+            }
+
+            .analisis-mapia h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .logo-container {
+                width: 100px;
+                height: 45px;
+            }
+
+            .benefit-item,
+            .service-card,
+            .analisis-card {
+                padding: 1.2rem;
+            }
+
+            .benefit-icon,
+            .service-icon,
+            .analisis-icon {
+                font-size: 2.5rem;
+            }
+
+            .pricing-table {
+                font-size: 0.75rem;
+            }
+
+            .pricing-table th,
+            .pricing-table td {
+                padding: 0.6rem 0.3rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -82,40 +1201,16 @@
         </div>
         <div class="video-overlay"></div>
         <div class="hero-content">
-            <div class="hero-logo">
-                <img src="logos/Recurso 9mdpi.webp" alt="Mapia Digital Logo">
-            </div>
+            <h1>MAPIA DIGITAL</h1>
             <p>Inteligencia geoespacial para decisiones más rentables</p>
             <p class="hero-subtitle">Convierte imágenes satelitales y de dron en mapas inteligentes que te ahorran costos y aumentan productividad</p>
-
-            <!-- Hero Stats - TEMPORALMENTE DESACTIVADAS -->
-            <!-- <div class="hero-stats">
-                <div class="hero-stat">
-                    <span class="hero-stat-number">30%</span>
-                    <span class="hero-stat-label">Ahorro en agroinsumos</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">15%</span>
-                    <span class="hero-stat-label">Aumento de productividad</span>
-                </div>
-                <div class="hero-stat">
-                    <span class="hero-stat-number">24h</span>
-                    <span class="hero-stat-label">Tiempo de respuesta</span>
-                </div>
-            </div> -->
-
-            <!-- CTA Buttons -->
-            <div class="hero-cta-group">
-                <a href="#diagnostico" class="cta-button" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Solicita un diagnóstico gratuito</a>
-                <a href="#productos" class="cta-button-secondary" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Ver Productos</a>
-            </div>
+            <a href="#diagnostico" class="cta-button">Solicita un diagnóstico gratuito</a>
         </div>
     </section>
 
 <!-- Benefits Section -->
     <section id="beneficios" class="benefits-section">
         <h2>Beneficios Clave</h2>
-        <div class="section-divider"></div>
         <div class="benefits-grid">
             <!-- Benefit 1 -->
             <div class="benefit-item">
@@ -168,20 +1263,20 @@
         </div>
     </section>
 
-<!-- Products & Services Header - Fondo Blanco -->
-    <section id="productos" class="products-header-section">
-        <h2>Productos y Servicios</h2>
-        <div class="section-divider"></div>
-        <p class="section-intro">Soluciones completas de inteligencia geoespacial para optimizar cada aspecto de tu operación agrícola y ganadera</p>
-    </section>
+    
 
-    <!-- Detailed Products Section - Con imagen de fondo -->
-    <section class="detailed-products-section">
+<!-- Products & Services - REMOVED/HIDDEN -->
+    <!-- This section has been replaced by the detailed products section below -->
+
+    <!-- Detailed Products Section -->
+    <section id="productos" class="detailed-products-section">
+        <h2>Productos y Servicios</h2>
+        <p class="section-intro">Soluciones completas de inteligencia geoespacial para optimizar cada aspecto de tu operación agrícola y ganadera</p>
+
         <!-- First row: Products 1 and 2 -->
         <div class="detailed-products-grid two-columns">
             <!-- Product 1 -->
             <div class="detailed-product-card">
-                <span class="product-badge">Más Solicitado</span>
                 <div class="product-image-container">
                     <img src="img/1.png" alt="Procesamiento Automático de Imágenes">
                 </div>
@@ -231,7 +1326,6 @@
         <div class="detailed-products-grid two-columns">
             <!-- Product 3 -->
             <div class="detailed-product-card">
-                <span class="product-badge tech-badge">Tecnología IA</span>
                 <div class="product-image-container">
                     <img src="img/3.png" alt="Conteo de Árboles y Frutos">
                 </div>
@@ -284,7 +1378,6 @@
         <div class="detailed-products-grid single-centered">
             <!-- Product 5 -->
             <div class="detailed-product-card">
-                <span class="product-badge tech-badge">Certificación</span>
                 <div class="product-image-container">
                     <img src="img/5.png" alt="Capacitación y Asesoría en Big Data e IA">
                 </div>
@@ -309,81 +1402,11 @@
         </div>
     </section>
 
-    <!-- Before/After Comparison Section -->
-    <section class="comparison-section">
-        <h2>Resultados Reales de Nuestros Análisis</h2>
-        <div class="section-divider"></div>
-        <p class="comparison-intro">
-            Arrastra el control deslizante para ver la transformación de una imagen satelital básica
-            en un mapa de zonificación NDVI detallado
-        </p>
-
-        <div class="comparison-container">
-            <div class="comparison-wrapper">
-                <!-- Before Image (will use a placeholder or actual image) -->
-                <img src="img/1.png" alt="Imagen Original" class="comparison-image comparison-before" id="beforeImage">
-
-                <!-- After Image (will use a placeholder or actual image) -->
-                <img src="img/2.png" alt="Análisis NDVI" class="comparison-image comparison-after" id="afterImage">
-
-                <!-- Labels -->
-                <div class="comparison-label before">Original</div>
-                <div class="comparison-label after">Análisis NDVI</div>
-
-                <!-- Slider Handle -->
-                <div class="comparison-slider" id="comparisonSlider"></div>
-            </div>
-        </div>
-
-        <!-- Features Grid -->
-        <div class="comparison-features">
-            <div class="comparison-feature">
-                <div class="comparison-feature-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                </div>
-                <h3>Precisión Milimétrica</h3>
-                <p>Identificación exacta de zonas con diferente potencial productivo para aplicación variable</p>
-            </div>
-            <div class="comparison-feature">
-                <div class="comparison-feature-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="20" x2="18" y2="10"/>
-                        <line x1="12" y1="20" x2="12" y2="4"/>
-                        <line x1="6" y1="20" x2="6" y2="14"/>
-                    </svg>
-                </div>
-                <h3>Datos Accionables</h3>
-                <p>Mapas de zonificación listos para usar en equipos de aplicación variable</p>
-            </div>
-            <div class="comparison-feature">
-                <div class="comparison-feature-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-                    </svg>
-                </div>
-                <h3>Procesamiento Rápido</h3>
-                <p>Análisis completo en menos de 24 horas desde la carga de imágenes</p>
-            </div>
-            <div class="comparison-feature">
-                <div class="comparison-feature-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                    </svg>
-                </div>
-                <h3>Ahorro Inmediato</h3>
-                <p>Reduce hasta 30% el uso de agroinsumos aplicando solo donde se necesita</p>
-            </div>
-        </div>
-    </section>
-
     <!-- HYPERSATELLITE APP Section -->
     <section id="hypersatellite" style="padding: 4rem 2rem; background: var(--bg-white); text-align: center;">
         <div style="max-width: 900px; margin: 0 auto;">
             <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
-                <img src="logos/LOGO_HYPERSATELLITE.png" alt="Hypersatellite Logo" style="height: 250px; object-fit: contain;">
+                <img src="logos/LOGO_HYPERSATELLITE.png" alt="Hypersatellite Logo" style="height: 150px; object-fit: contain;">
             </div>
             <h3 style="color: var(--medium-green); font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: bold;">
                 Descarga HYPERSATELLITE APP
@@ -395,7 +1418,7 @@
                 <a href="https://www.hypersatelliteapp.com" target="_blank" style="display: inline-block; transition: transform 0.3s;">
                     <img src="logos/GooglePlay.png" alt="Descargar en Google Play" style="height: 60px; object-fit: contain; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
                 </a>
-                <a href="https://www.hypersatelliteapp.com" target="_blank" class="cta-button" style="background: var(--light-green); color: var(--text-white); border-color: var(--light-green); padding: 1.2rem 3rem; font-size: 1.2rem;">
+                <a href="https://www.hypersatelliteapp.com" target="_blank" class="cta-button" style="background: var(--medium-green); color: var(--text-white); border-color: var(--medium-green); font-size: 1.1rem; padding: 1rem 2.5rem;">
                     Visitar sitio web
                 </a>
             </div>
@@ -403,7 +1426,7 @@
     </section>
 
     <!-- Certification CTA Section -->
-    <section id="certificacion" style="padding: 4rem 2rem; background: var(--dark-green); text-align: center;">
+    <section id="certificacion" style="padding: 4rem 2rem; background: linear-gradient(0deg, var(--medium-green) 0%, var(--light-green) 100%); text-align: center;">
         <div style="max-width: 800px; margin: 0 auto;">
             <h3 style="color: var(--text-yellow); font-size: 2rem; margin-bottom: 1.5rem; font-weight: bold;">
                 ¿Quieres dominar la tecnología AgTech?
@@ -411,10 +1434,10 @@
             <p style="color: var(--text-white); font-size: 1.1rem; margin-bottom: 1rem; line-height: 1.6;">
                 Aprende las herramientas profesionales que usamos en Mapia Digital
             </p>
-            <p style="color: var(--text-white); font-size: 1rem; margin-bottom: 2rem; line-height: 1.6;">
-                Certificación Internacional de AgTech con GEE, Machine Learning y Python
+            <p style="color: var(--text-white); font-size: 1.5rem; margin-bottom: 2rem; line-height: 1.6; font-weight: bold; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); letter-spacing: 1px;">
+                Certificación Internacional en AgTech con GEE, Machine Learning y Python
             </p>
-            <a href="https://www.claumiseimbett.com" target="_blank" class="cta-button" style="background: var(--text-white); color: var(--dark-green); border-color: var(--text-white); padding: 1.2rem 3rem; font-size: 1.2rem;">
+            <a href="https://www.claumiseimbett.com" target="_blank" class="cta-button" style="background: var(--text-white); color: var(--medium-green); border-color: var(--text-white); font-size: 1.2rem; padding: 1.2rem 3rem;">
                 Inscríbete Aquí
             </a>
         </div>
@@ -423,13 +1446,12 @@
     <!-- Pricing Section -->
     <section id="precios" class="pricing-section">
         <h2>Precios y Planes</h2>
-        <div class="section-divider"></div>
         <p class="section-subtitle">Soluciones flexibles para cada tipo de operación agrícola</p>
 
-        <!-- Drones Pricing Cards -->
+        <!-- Drones Pricing Table -->
         <div style="margin-bottom: 5rem;">
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h3 class="pricing-subsection-title">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="color: var(--medium-green); font-size: 2rem; margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 1rem;">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                         <path d="M2 17l10 5 10-5"/>
@@ -437,339 +1459,107 @@
                     </svg>
                     Servicios con Drones
                 </h3>
-                <p style="color: #666; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">Imágenes de alta resolución - Pago por Servicio a convenir para predios menores 200 ha (zonificación) y 100 ha (conteo)</p>
+                <p style="color: #666; font-size: 1.1rem;">Imágenes de alta resolución - Pago por Servicio a convenir para predios menores 200 ha (zonificación) y 100 ha (conteo) </p>
             </div>
 
-            <div class="pricing-cards-container">
-                <!-- Card 1: Zonificación -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 3h18v18H3z"/>
-                                <path d="M9 3v18"/>
-                                <path d="M15 3v18"/>
-                                <path d="M3 9h18"/>
-                                <path d="M3 15h18"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Zonificación con Clustering</h4>
-                        <p class="pricing-card-subtitle">Análisis por servicio</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$10,000 COP/ha</div>
-                        <div class="price-secondary">$2.5 USD/ha</div>
-                        <div class="price-note">Mínimo: $2M COP / $500 USD por proyecto</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">1 análisis + reporte de zonificación + shapefile</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Predios de 200 hectáreas</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-
-                <!-- Card 2: Conteo con IA -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"/>
-                                <path d="M12 6v6l4 2"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Conteo con IA</h4>
-                        <p class="pricing-card-subtitle">Inteligencia Artificial avanzada</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$50,000 COP/ha</div>
-                        <div class="price-secondary">$12.5 USD/ha</div>
-                        <div class="price-note">Mínimo: $5M COP / $1,250 USD por proyecto</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Conteo de árboles/frutos + reporte de conteo por zonas + shapefile</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Predios de 100 hectáreas</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-
-                <!-- Card 3: Suscripción Básica -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Suscripción Básica</h4>
-                        <p class="pricing-card-subtitle">Seguimiento regular</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$3 - 8M/mes</div>
-                        <div class="price-secondary">$750 - $2,000/mes</div>
-                        <div class="price-note">Para predios de 30-200 hectáreas</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Cobertura</div>
-                            <div class="pricing-feature-value">Hasta 300 hectáreas</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Análisis mensuales</div>
-                            <div class="pricing-feature-value">3-5 análisis por mes</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Alertas por WhatsApp</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-
-                <!-- Card 4: Suscripción Pro -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Suscripción Pro</h4>
-                        <p class="pricing-card-subtitle">Gran escala</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$8 - 10M/mes</div>
-                        <div class="price-secondary">$2,000 - $2,500/mes</div>
-                        <div class="price-note">Para operaciones grandes</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Cobertura</div>
-                            <div class="pricing-feature-value">Hasta 800 hectáreas</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Análisis</div>
-                            <div class="pricing-feature-value">Análisis ilimitados</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Históricos + Acceso API + Integración con sistemas propios</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-
-                <!-- Card 5: White Label -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">White Label</h4>
-                        <p class="pricing-card-subtitle">Tu marca, nuestra tecnología</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$10 - 20M/año</div>
-                        <div class="price-secondary">$2,500 - $5,000/año</div>
-                        <div class="price-note">+ 20% revenue share</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Plataforma completa con tu marca + Soporte técnico + Actualización continua</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Empresas de drones - Tecnología invisible bajo tu marca</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
+            <div class="pricing-table-container">
+                <table class="pricing-table pricing-table-drone">
+                    <thead>
+                        <tr>
+                            <th>Modalidad</th>
+                            <th>Precio</th>
+                            <th>Incluye</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="modalidad-cell">Pago por Servicio<br>(Zonificación con clustering)</td>
+                            <td class="precio-cell">$10,000 COP/ha</td>
+                            <td>1 análisis + reporte de zonificación + shapefile</td>
+                            <td>Mínimo: $2M por proyecto<br>Ideal para: 200 ha</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Pago por Servicio<br>(Conteo con IA)</td>
+                            <td class="precio-cell">$50,000 COP/ha</td>
+                            <td>Conteo de árboles/frutos + reporte de conteo por zonas + shapefile</td>
+                            <td>Mínimo: $5M por proyecto <br> Ideal para: 100 ha </td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Suscripción Básica</td>
+                            <td class="precio-cell">$3 - 8M/mes</td>
+                            <td>Hasta 300 ha<br>3-5 análisis/mes<br>Alertas WhatsApp</td>
+                            <td>Predios 30-200 ha<br>Ideal para seguimiento regular</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Suscripción Pro</td>
+                            <td class="precio-cell">$8 -10M/mes</td>
+                            <td>Hasta 800 ha<br>Análisis ilimitados<br>Históricos<br>Acceso API</td>
+                            <td>Para operaciones de gran escala<br>Integración con sistemas propios</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">White Label</td>
+                            <td class="precio-cell">$10 - 20M/año<br>+ 20% revenue share</td>
+                            <td>Plataforma completa<br>Tu marca<br>Soporte técnico<br>Actualización continua</td>
+                            <td>Para empresas de drones<br>Tecnología invisible bajo tu marca</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Satellite Pricing Cards -->
+        <!-- Satellite Pricing Table -->
         <div style="margin-bottom: 3rem;">
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h3 class="pricing-subsection-title">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h3 style="color: var(--medium-green); font-size: 2rem; margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 1rem;">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M12 2a10 10 0 0 0 0 20"/>
                         <path d="M2 12h20"/>
                     </svg>
-                    Monitoreo Satelital para Pastoreo
+                    Monitoreo Satelital para Pastoreo 
                 </h3>
-                <p style="color: #666; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">Seguimiento con satélite - Optimización de pasturas y biomasa</p>
+                <p style="color: #666; font-size: 1.1rem;">Seguimiento con satélite  - Optimización de pasturas y biomasa</p>
             </div>
 
-            <!-- Primera fila: 2 tarjetas -->
-            <div class="pricing-cards-container satellite-row">
-                <!-- Card 1: Básico -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                <polyline points="9 22 9 12 15 12 15 22"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Básico</h4>
-                        <p class="pricing-card-subtitle">Inicio del monitoreo</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$800,000 COP/mes</div>
-                        <div class="price-secondary">$200 USD/mes</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Cobertura</div>
-                            <div class="pricing-feature-value">Hasta 500 hectáreas</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Mapas NDVI, alertas básicas por WhatsApp y PDF, mapas de zonificación</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Fincas pequeñas que desean iniciar el monitoreo satelital del pasto y estimar variaciones de biomasa automáticamente</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-
-                <!-- Card 2: Estándar -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Estándar</h4>
-                        <p class="pricing-card-subtitle">Análisis multitemporal</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$1,500,000 COP/mes</div>
-                        <div class="price-secondary">$375 USD/mes</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Cobertura</div>
-                            <div class="pricing-feature-value">Hasta 1,000 hectáreas</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Análisis multitemporal de forraje, reportes descargables en PDF vía WhatsApp</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Medianos productores que buscan integrar análisis avanzado de forraje</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Segunda fila: 2 tarjetas -->
-            <div class="pricing-cards-container satellite-row" style="margin-top: 2rem;">
-                <!-- Card 3: Premium -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Premium</h4>
-                        <p class="pricing-card-subtitle">Múltiples unidades</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$3,000,000 COP/mes</div>
-                        <div class="price-secondary">$750 USD/mes</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Cobertura</div>
-                            <div class="pricing-feature-value">Hasta 3,000 hectáreas</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Empresas ganaderas con varias unidades productivas</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
-
-                <!-- Card 4: Enterprise -->
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <div class="pricing-card-icon">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                                <circle cx="9" cy="7" r="4"/>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                            </svg>
-                        </div>
-                        <h4 class="pricing-card-title">Enterprise</h4>
-                        <p class="pricing-card-subtitle">Solución integral</p>
-                    </div>
-                    <div class="pricing-card-price">
-                        <div class="price-primary">$5,000,000 COP/mes</div>
-                        <div class="price-secondary">$1,250 USD/mes</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Cobertura</div>
-                            <div class="pricing-feature-value">Sin límite</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Incluye</div>
-                            <div class="pricing-feature-value">Plataforma dedicada, integración con APIs, asistencia técnica especializada para gestión avanzada del pasto</div>
-                        </div>
-                        <div class="pricing-feature">
-                            <div class="pricing-feature-label">Ideal para</div>
-                            <div class="pricing-feature-value">Redes ganaderas o asociaciones con múltiples operaciones</div>
-                        </div>
-                    </div>
-                    <div class="pricing-card-footer">
-                        <a href="#contacto" class="pricing-cta">Solicitar Cotización</a>
-                    </div>
-                </div>
+            <div class="pricing-table-container">
+                <table class="pricing-table pricing-table-satellite">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Precio Mensual</th>
+                            <th>Cobertura</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="modalidad-cell">Básico</td>
+                            <td class="precio-cell">$800,000 COP/mes</td>
+                            <td>Hasta 500 ha</td>
+                            <td>Ideal para fincas pequeñas que desean iniciar el monitoreo satelital del pasto y estimar variaciones de biomasa de forma automática</td>
+                            </td> Incluye generación de mapas NDVI y alertas básicas enviadas por WhatsApp y en pdf, mapas de zonificación.</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Estándar</td>
+                            <td class="precio-cell">$1,500,000 COP/mes</td>
+                            <td>Hasta 1,000 ha</td>
+                            <td>Diseñado para medianos productores que buscan integrar análisis multitemporal de forraje, con reportes descargables pdf via WhatsApp .</td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Premium</td>
+                            <td class="precio-cell">$3,000,000 COP/mes</td>
+                            <td>Hasta 3,000 ha</td>
+                            <td>Orientado a empresas ganaderas con varias unidades productivas </td>
+                        </tr>
+                        <tr>
+                            <td class="modalidad-cell">Enterprise</td>
+                            <td class="precio-cell">$5,000,000 COP/mes</td>
+                            <td>Sin límite</td>
+                            <td>Solución integral para redes ganaderas o asociaciones. Incluye plataforma dedicada, integración con APIs y asistencia técnica especializada para gestión avanzada del pasto.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -782,7 +1572,6 @@
     <!-- Upload Section -->
     <section id="cargar" class="upload-section">
         <h2>Solicita tu Análisis</h2>
-        <div class="section-divider"></div>
 
         <!-- Intro Text -->
         <div style="max-width: 900px; margin: 0 auto 3rem; text-align: center;">
@@ -792,21 +1581,11 @@
             </p>
         </div>
 
-        <!-- Información de Contacto - Estilo Recuadro -->
-        <section style="padding: 6rem 2rem; background: #f5f5f5; text-align: center; margin: 0 auto 4rem; border-radius: 20px;">
-            <div style="max-width: 800px; margin: 0 auto; background: var(--bg-white); padding: 4rem 3rem; border-radius: 20px; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);">
-                <div style="font-size: 3rem; color: var(--light-green); margin-bottom: 1.5rem;">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block;">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="8.5" cy="7" r="4"/>
-                        <polyline points="17 11 19 13 23 9"/>
-                    </svg>
-                </div>
-                <h3 style="color: var(--medium-green); font-size: 2rem; margin-bottom: 1.5rem; font-weight: 600;">Información de Contacto</h3>
-                <p style="color: #666; font-size: 1.1rem; margin: 0 auto 2.5rem; line-height: 1.6;">
-                    Completa tus datos para recibir tu cotización personalizada
-                </p>
-                <form id="uploadForm" style="display: grid; gap: 1.5rem; max-width: 600px; margin: 0 auto; text-align: left;">
+        <!-- Upload Form -->
+        <div class="analisis-mapia">
+            <div style="margin-bottom: 2rem;">
+                <h3 style="margin: 0 0 1rem 0; color: var(--medium-green);">Información de Contacto</h3>
+                <form id="uploadForm" style="display: grid; gap: 1.5rem; max-width: 600px; margin: 0 auto;">
                     <div style="display: grid; gap: 0.5rem;">
                         <label style="color: #333; font-weight: 500;">Nombre completo *</label>
                         <input type="text" id="userName" required style="padding: 0.8rem; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem;">
@@ -825,16 +1604,9 @@
                     </div>
                 </form>
             </div>
-        </section>
-
-        <!-- Upload Form -->
-        <div class="analisis-mapia">
 
             <div style="margin-bottom: 2rem;">
-                <h3 style="margin: 0 0 1rem 0; text-align: center; color: var(--medium-green);">Selecciona el método de envío</h3>
-                <p style="text-align: center; color: #dc3545; font-weight: 500; font-size: 1rem; margin: 0 auto 1.5rem; max-width: 700px; background: #fff3cd; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
-                    ⚠️ Recuerda completar primero el formulario de Información de Contacto arriba antes de cargar archivos
-                </p>
+                <h3 style="margin: 0 0 2rem 0; text-align: center; color: var(--medium-green);">Selecciona el método de envío</h3>
             </div>
 
             <div class="analisis-options">
@@ -913,36 +1685,31 @@
             <div id="map" style="flex: 1; width: 100%;"></div>
             <div style="padding: 1.5rem; border-top: 2px solid #ddd; display: flex; gap: 1rem; justify-content: flex-end;">
                 <button onclick="clearMapDrawing()" style="padding: 0.8rem 2rem; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1rem;">Limpiar</button>
-                <button onclick="saveMapCoordinates()" class="cta-button" style="padding: 1.2rem 3rem; font-size: 1.2rem;">Guardar Área</button>
+                <button onclick="saveMapCoordinates()" class="cta-button" style="padding: 0.8rem 2rem; font-size: 1rem;">Guardar Área</button>
             </div>
         </div>
     </div>
 
     <!-- Diagnóstico Gratuito Section -->
-    <section id="diagnostico" style="padding: 6rem 2rem; background: #f5f5f5; text-align: center; margin-top: 0; margin-bottom: 0;">
-        <div style="max-width: 800px; margin: 0 auto; background: var(--bg-white); padding: 4rem 3rem; border-radius: 20px; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);">
-            <div style="font-size: 3rem; color: var(--light-green); margin-bottom: 1.5rem;">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block;">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                </svg>
+    <section id="diagnostico" class="upload-section" style="background: #f9f9f9;">
+        <h2>Diagnóstico y Cotización Gratuita</h2>
+        <p style="text-align: center; color: #666; font-size: 1.1rem; max-width: 700px; margin: 0 auto 3rem;">
+            Nuestro equipo analizará tu finca y te mostrará cómo la inteligencia geoespacial puede optimizar tus operaciones
+        </p>
+        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+            <div style="background: var(--bg-white); padding: 3rem; border-radius: 10px; border: 2px solid var(--medium-green);">
+                <p style="color: #666; margin-bottom: 1.5rem;">El formulario de contacto se configurará próximamente con Brevo</p>
+                <a href="mailto:contacto@mapiadigital.com" class="cta-button" style="display: inline-block;">Contáctanos por email</a>
             </div>
-            <h2 style="color: var(--medium-green); font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: bold;">Diagnóstico y Cotización Gratuita</h2>
-            <p style="color: #666; font-size: 1.2rem; margin: 0 auto 2.5rem; line-height: 1.6;">
-                Nuestro equipo analizará tu finca y te mostrará cómo la inteligencia geoespacial puede optimizar tus operaciones
-            </p>
-            <button onclick="sendDiagnosticoRequest()" class="cta-button" style="display: inline-block; background: var(--light-green); border-color: var(--light-green); padding: 1.2rem 3rem; font-size: 1.2rem; cursor: pointer;">Solicitar Diagnóstico Gratuito</button>
-            <p style="color: #999; font-size: 0.95rem; margin-top: 1.5rem; font-style: italic;">Respuesta en menos de 24 horas</p>
         </div>
     </section>
 
     <!-- Success Projects Section -->
-    <section class="success-projects-section" style="background: var(--bg-white); border-bottom: 4px solid var(--medium-green);">
+    <section class="success-projects-section">
         <h2>Proyectos Exitosos</h2>
-        <div class="section-divider"></div>
         <div class="projects-logos-grid">
             <!-- Hypercorn Logo -->
-            <div class="project-logo-container" style="width: 200px; height: 120px;">
+            <div class="project-logo-container">
                 <img src="logos/LOGO_HYPERCORN.webp" alt="Hypercorn Project">
             </div>
 
@@ -955,94 +1722,400 @@
 
     <!-- Footer -->
     <footer id="contacto">
-        <div class="footer-content">
-            <!-- Footer CTA -->
-            <div class="footer-cta">
-                <h3>¿Listo para transformar tu agricultura?</h3>
-                <p>Contacta con nosotros y descubre cómo Mapia Digital puede impulsar tu productividad</p>
-            </div>
-
-            <!-- Footer Main Content -->
-            <div class="footer-main">
-                <!-- About Section -->
-                <div class="footer-section">
-                    <h3>Mapia Digital</h3>
-                    <p>Soluciones de inteligencia geoespacial para optimizar tu operación agrícola. Tecnología de punta aplicada al campo.</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/agtech_program/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                            </svg>
-                        </a>
-                        <a href="https://www.linkedin.com/company/agtech-program/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="footer-section">
-                    <h3>Enlaces Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="#beneficios">Beneficios</a></li>
-                        <li><a href="#productos">Productos</a></li>
-                        <li><a href="#precios">Precios</a></li>
-                        <li><a href="#cargar">Subir Mapa</a></li>
-                        <li><a href="#diagnostico">Diagnóstico Gratuito</a></li>
-                    </ul>
-                </div>
-
-                <!-- Servicios -->
-                <div class="footer-section">
-                    <h3>Servicios</h3>
-                    <ul class="footer-links">
-                        <li><a href="#productos">Procesamiento de Imágenes</a></li>
-                        <li><a href="#productos">Zonificación Temporal</a></li>
-                        <li><a href="#productos">Conteo con IA</a></li>
-                        <li><a href="#productos">Monitoreo Satelital</a></li>
-                        <li><a href="#certificacion">Certificación AgTech</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="footer-section">
-                    <h3>Contacto</h3>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            <a href="mailto:contacto@mapiadigital.com">contacto@mapiadigital.com</a>
-                        </div>
-                        <div class="contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
-                            <span>Colombia</span>
-                        </div>
-                        <div class="contact-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
-                            </svg>
-                            <span>Respuesta en 24h</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <p>&copy; 2024 Mapia Digital - Todos los derechos reservados</p>
-                <p style="margin-top: 0.5rem;">Powered by AgTech Program</p>
-            </div>
-        </div>
+        <h3>¿Listo para transformar tu agricultura?</h3>
+        <p>Contacta con nosotros y descubre cómo Mapia Digital puede impulsar tu productividad</p>
+        <p style="margin-top: 1.5rem;">
+            <strong>Email:</strong> <a href="mailto:info@hypersatelliteapp.com" style="color: var(--primary-yellow); text-decoration: none;">info@hypersatelliteapp.com</a><br>
+            <strong>Teléfono:</strong> <a href="tel:+573043499052" style="color: var(--primary-yellow); text-decoration: none;">+57 304 349 9052</a>
+        </p>
+        <p style="margin-top: 2rem;">&copy; 2024 Mapia Digital - Todos los derechos reservados</p>
     </footer>
 
-    <!-- External JavaScript -->
-    <script src="script.js?v=6.0"></script>
+    <script>
+        // ==========================================
+        // CONFIGURACIÓN - REEMPLAZA CON TUS CREDENCIALES
+        // ==========================================
+        const CONFIG = {
+            // EmailJS
+            emailjs: {
+                publicKey: 'LB0ZmyG25EX_pUkrW',
+                serviceId: 'service_nlj8rfl',
+                templateId: 'template_58gr2hh'
+            },
+            // Google Drive
+            googleDrive: {
+                apiKey: 'AIzaSyAGkLHin7JWzltX2JXshNq3Gx_VpogSeVE',
+                clientId: '772512304413-mpt0t28du7dq7uk6i3gqd4oq6hugqhot.apps.googleusercontent.com',
+                folderId: '16teXO9Vlgun4XSdwR0xJSwlr8aQeuJs-'
+            }
+        };
+
+        // Initialize EmailJS
+        emailjs.init(CONFIG.emailjs.publicKey);
+
+        // ==========================================
+        // VARIABLES GLOBALES
+        // ==========================================
+        let uploadedFiles = {
+            image: null,
+            vector: null
+        };
+        let mapCoordinates = null;
+        let map = null;
+        let drawingManager = null;
+        let currentShape = null;
+
+        // ==========================================
+        // MOBILE MENU
+        // ==========================================
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // ==========================================
+        // SMOOTH SCROLLING
+        // ==========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // ==========================================
+        // FILE UPLOAD HANDLERS
+        // ==========================================
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                uploadedFiles.image = file;
+                document.getElementById('imageStatus').innerHTML = `✓ ${file.name}<br>${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+                document.querySelector('#imageUpload').parentElement.querySelector('.upload-placeholder').style.background = 'var(--light-green)';
+                document.querySelector('#imageUpload').parentElement.querySelector('.upload-placeholder').style.color = 'white';
+            }
+        });
+
+        document.getElementById('vectorUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                uploadedFiles.vector = file;
+                document.getElementById('vectorStatus').innerHTML = `✓ ${file.name}<br>${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+                document.querySelector('#vectorUpload').parentElement.querySelector('.upload-placeholder').style.background = 'var(--light-green)';
+                document.querySelector('#vectorUpload').parentElement.querySelector('.upload-placeholder').style.color = 'white';
+            }
+        });
+
+        // ==========================================
+        // GOOGLE MAPS MODAL
+        // ==========================================
+        function openMapModal() {
+            document.getElementById('mapModal').style.display = 'flex';
+            if (!map) {
+                initMap();
+            }
+        }
+
+        function closeMapModal() {
+            document.getElementById('mapModal').style.display = 'none';
+        }
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                // TODO: The Drawing library is deprecated. Consider migrating to a different drawing tool.
+                center: { lat: 4.5709, lng: -74.2973 }, // Colombia centro
+                zoom: 6,
+                mapTypeId: 'satellite'
+            });
+
+            drawingManager = new google.maps.drawing.DrawingManager({
+                drawingMode: google.maps.drawing.OverlayType.POLYGON,
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_CENTER,
+                    drawingModes: ['polygon', 'marker']
+                },
+                polygonOptions: {
+                    fillColor: '#5db53a',
+                    fillOpacity: 0.3,
+                    strokeWeight: 2,
+                    strokeColor: '#4e7e32',
+                    clickable: true,
+                    editable: true,
+                    draggable: true
+                },
+                markerOptions: {
+                    icon: {
+                        url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                    }
+                }
+            });
+
+            drawingManager.setMap(map);
+
+            google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+                if (currentShape) {
+                    currentShape.setMap(null);
+                }
+                currentShape = event.overlay;
+            });
+        }
+
+        function clearMapDrawing() {
+            if (currentShape) {
+                currentShape.setMap(null);
+                currentShape = null;
+            }
+            mapCoordinates = null;
+        }
+
+        function saveMapCoordinates() {
+            if (!currentShape) {
+                alert('Por favor dibuja un área en el mapa primero');
+                return;
+            }
+
+            if (currentShape.getPath) {
+                // Es un polígono
+                const path = currentShape.getPath();
+                const coordinates = [];
+                for (let i = 0; i < path.getLength(); i++) {
+                    const point = path.getAt(i);
+                    coordinates.push({
+                        lat: point.lat(),
+                        lng: point.lng()
+                    });
+                }
+                mapCoordinates = {
+                    type: 'polygon',
+                    coordinates: coordinates
+                };
+            } else if (currentShape.getPosition) {
+                // Es un marcador
+                const position = currentShape.getPosition();
+                mapCoordinates = {
+                    type: 'marker',
+                    coordinates: {
+                        lat: position.lat(),
+                        lng: position.lng()
+                    }
+                };
+            }
+
+            document.getElementById('mapStatus').innerHTML = `✓ Área seleccionada<br>${mapCoordinates.type === 'polygon' ? 'Polígono' : 'Punto'} guardado`;
+            document.querySelector('#mapStatus').parentElement.style.background = 'var(--light-green)';
+            document.querySelector('#mapStatus').parentElement.style.color = 'white';
+
+            closeMapModal();
+        }
+
+        // ==========================================
+        // GOOGLE DRIVE UPLOAD
+        // ==========================================
+        async function uploadToGoogleDrive(file, fileName) {
+            return new Promise((resolve, reject) => {
+                const metadata = {
+                    name: fileName,
+                    mimeType: file.type,
+                    parents: [CONFIG.googleDrive.folderId]
+                };
+
+                const form = new FormData();
+                form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+                form.append('file', file);
+
+                fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,webViewLink,webContentLink', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + gapi.client.getToken().access_token
+                    },
+                    body: form
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.id) {
+                        // Hacer el archivo público
+                        fetch(`https://www.googleapis.com/drive/v3/files/${data.id}/permissions`, {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + gapi.client.getToken().access_token,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                role: 'reader',
+                                type: 'anyone'
+                            })
+                        })
+                        .then(() => resolve(data))
+                        .catch(reject);
+                    } else {
+                        reject(data);
+                    }
+                })
+                .catch(reject);
+            });
+        }
+
+        function initGoogleDrive() {
+            return new Promise((resolve, reject) => {
+                gapi.load('client:auth2', () => {
+                    gapi.client.init({
+                        apiKey: CONFIG.googleDrive.apiKey,
+                        clientId: CONFIG.googleDrive.clientId,
+                        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+                        scope: 'https://www.googleapis.com/auth/drive.file'
+                    })
+                    .then(() => {
+                        if (!gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                            return gapi.auth2.getAuthInstance().signIn();
+                        }
+                    })
+                    .then(resolve)
+                    .catch(reject);
+                });
+            });
+        }
+
+        // ==========================================
+        // SUBMIT FORM
+        // ==========================================
+        async function submitAnalysisRequest() {
+            // Validar campos requeridos
+            const userName = document.getElementById('userName').value;
+            const userEmail = document.getElementById('userEmail').value;
+
+            if (!userName || !userEmail) {
+                alert('Por favor completa los campos obligatorios: Nombre y Email');
+                return;
+            }
+
+            // Validar que haya al menos un método de envío
+            if (!uploadedFiles.image && !uploadedFiles.vector && !mapCoordinates) {
+                alert('Por favor selecciona al menos un método de envío: archivo o área en el mapa');
+                return;
+            }
+
+            // Mostrar loading
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Procesando...';
+            button.disabled = true;
+
+            try {
+                let fileLinks = '';
+
+                // Si hay archivos, subirlos a Google Drive
+                if (uploadedFiles.image || uploadedFiles.vector) {
+                    await initGoogleDrive();
+
+                    if (uploadedFiles.image) {
+                        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                        const result = await uploadToGoogleDrive(
+                            uploadedFiles.image,
+                            `${userName.replace(/\s+/g, '_')}_${timestamp}_ortomosaico_${uploadedFiles.image.name}`
+                        );
+                        fileLinks += `Ortomosaico: ${result.webViewLink}\n`;
+                    }
+
+                    if (uploadedFiles.vector) {
+                        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                        const result = await uploadToGoogleDrive(
+                            uploadedFiles.vector,
+                            `${userName.replace(/\s+/g, '_')}_${timestamp}_vector_${uploadedFiles.vector.name}`
+                        );
+                        fileLinks += `Archivo vectorial: ${result.webViewLink}\n`;
+                    }
+                }
+
+                // Preparar datos para EmailJS
+                const templateParams = {
+                    user_name: userName,
+                    user_email: userEmail,
+                    user_phone: document.getElementById('userPhone').value || 'No especificado',
+                    hectares: document.getElementById('hectares').value || 'No especificado',
+                    file_links: fileLinks || 'No se cargaron archivos',
+                    map_coordinates: mapCoordinates ? JSON.stringify(mapCoordinates, null, 2) : 'No se seleccionó área en el mapa',
+                    comments: document.getElementById('comments').value || 'Sin comentarios'
+                };
+
+                // Enviar email con EmailJS
+                await emailjs.send(
+                    CONFIG.emailjs.serviceId,
+                    CONFIG.emailjs.templateId,
+                    templateParams
+                );
+
+                // Éxito
+                alert('¡Solicitud enviada exitosamente! Recibirás una respuesta en menos de 24 horas.');
+
+                // Limpiar formulario
+                document.getElementById('uploadForm').reset();
+                document.getElementById('comments').value = '';
+                uploadedFiles = { image: null, vector: null };
+                mapCoordinates = null;
+
+                // Resetear estados visuales
+                document.getElementById('imageStatus').innerHTML = '↑ Click para subir<br>Formatos: TIFF, GeoTIFF, HDF';
+                document.getElementById('vectorStatus').innerHTML = '↑ Click para subir<br>Formatos: .KML, .KMZ, .SHP, .ZIP';
+                document.getElementById('mapStatus').innerHTML = '↑ Click para abrir mapa<br>Dibuja o marca tu área';
+
+                document.querySelectorAll('.upload-placeholder').forEach(el => {
+                    el.style.background = 'var(--bg-white)';
+                    el.style.color = '#666';
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al enviar la solicitud. Por favor intenta de nuevo o contáctanos directamente.');
+            } finally {
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+
+        // ==========================================
+        // SCROLL ANIMATIONS
+        // ==========================================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.benefit-item, .service-card, .analisis-card, .main-upload-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
 
