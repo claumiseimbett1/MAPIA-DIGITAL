@@ -667,6 +667,97 @@ document.querySelectorAll('.comparison-feature').forEach((el, index) => {
 });
 
 // ==========================================
+// BEFORE/AFTER COMPARISON SLIDER 2
+// ==========================================
+const comparisonSlider2 = document.getElementById('comparisonSlider2');
+const beforeImage2 = document.getElementById('beforeImage2');
+const comparisonWrapper2 = document.querySelectorAll('.comparison-wrapper')[1];
+
+if (comparisonSlider2 && beforeImage2 && comparisonWrapper2) {
+    let isDragging2 = false;
+
+    // Function to update slider position
+    function updateSlider2(percentage) {
+        // Constrain percentage between 0 and 100
+        percentage = Math.max(0, Math.min(100, percentage));
+
+        // Update slider position
+        comparisonSlider2.style.left = percentage + '%';
+
+        // Update clip-path for before image
+        beforeImage2.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+    }
+
+    // Mouse/Touch event handlers
+    function startDragging2(e) {
+        isDragging2 = true;
+        e.preventDefault();
+    }
+
+    function stopDragging2() {
+        isDragging2 = false;
+    }
+
+    function onMove2(e) {
+        if (!isDragging2) return;
+
+        const rect = comparisonWrapper2.getBoundingClientRect();
+        const x = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - rect.left;
+        const percentage = (x / rect.width) * 100;
+
+        updateSlider2(percentage);
+    }
+
+    // Mouse events
+    comparisonSlider2.addEventListener('mousedown', startDragging2);
+    document.addEventListener('mouseup', stopDragging2);
+    document.addEventListener('mousemove', onMove2);
+
+    // Touch events
+    comparisonSlider2.addEventListener('touchstart', startDragging2);
+    document.addEventListener('touchend', stopDragging2);
+    document.addEventListener('touchmove', onMove2);
+
+    // Click on wrapper to move slider
+    comparisonWrapper2.addEventListener('click', (e) => {
+        if (e.target === comparisonSlider2 || e.target.parentElement === comparisonSlider2) return;
+
+        const rect = comparisonWrapper2.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percentage = (x / rect.width) * 100;
+
+        updateSlider2(percentage);
+    });
+
+    // Initial animation - slide from left to right
+    setTimeout(() => {
+        let currentPosition = 0;
+        const targetPosition = 50;
+        const duration = 1500;
+        const startTime = Date.now();
+
+        function animate() {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Easing function (ease-in-out)
+            const easeProgress = progress < 0.5
+                ? 2 * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+            currentPosition = easeProgress * targetPosition;
+            updateSlider2(currentPosition);
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        }
+
+        animate();
+    }, 500);
+}
+
+// ==========================================
 // ANIMATED STATISTICS COUNTER - TEMPORALMENTE DESACTIVADO
 // ==========================================
 /*
