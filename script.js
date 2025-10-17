@@ -330,58 +330,76 @@ function initGoogleDrive() {
 }
 
 // ==========================================
-// DIAGNÓSTICO GRATUITO REQUEST
+// FORMULARIO DE CONTACTO
 // ==========================================
-async function sendDiagnosticoRequest() {
-    // Pedir nombre y email al usuario
-    const userName = prompt('Por favor ingresa tu nombre completo:');
-    if (!userName || userName.trim() === '') {
-        alert('El nombre es requerido para solicitar el diagnóstico gratuito.');
-        return;
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+
+            // Obtener valores del formulario
+            const contactName = document.getElementById('contactName').value.trim();
+            const contactEmail = document.getElementById('contactEmail').value.trim();
+            const contactPhone = document.getElementById('contactPhone').value.trim();
+            const contactMessage = document.getElementById('contactMessage').value.trim();
+
+            // Validaciones
+            if (!contactName || !contactEmail || !contactMessage) {
+                alert('Por favor completa todos los campos obligatorios (*)');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(contactEmail)) {
+                alert('Por favor ingresa un email válido');
+                return;
+            }
+
+            // Deshabilitar botón y mostrar estado de carga
+            submitButton.textContent = 'Enviando...';
+            submitButton.disabled = true;
+
+            try {
+                // Preparar datos para EmailJS
+                const templateParams = {
+                    user_name: contactName,
+                    user_email: contactEmail,
+                    user_phone: contactPhone || 'No especificado',
+                    hectares: 'No especificado',
+                    file_links: 'Consulta desde formulario de contacto',
+                    map_coordinates: 'No aplica',
+                    comments: contactMessage
+                };
+
+                // Enviar email con EmailJS
+                await emailjs.send(
+                    CONFIG.emailjs.serviceId,
+                    CONFIG.emailjs.templateId,
+                    templateParams
+                );
+
+                // Éxito
+                alert('¡Mensaje enviado exitosamente! Te responderemos en menos de 24 horas.');
+
+                // Limpiar formulario
+                contactForm.reset();
+
+            } catch (error) {
+                console.error('Error al enviar:', error);
+                alert('Hubo un error al enviar el mensaje. Por favor intenta de nuevo o contáctanos directamente a info@hypersatelliteapp.com');
+            } finally {
+                // Restaurar botón
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
+        });
     }
-
-    const userEmail = prompt('Por favor ingresa tu email:');
-    if (!userEmail || userEmail.trim() === '') {
-        alert('El email es requerido para solicitar el diagnóstico gratuito.');
-        return;
-    }
-
-    // Validar formato de email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(userEmail.trim())) {
-        alert('Por favor ingresa un email válido.');
-        return;
-    }
-
-    const userPhone = prompt('Por favor ingresa tu teléfono (opcional):') || 'No especificado';
-
-    try {
-        // Preparar datos para EmailJS
-        const templateParams = {
-            user_name: userName.trim(),
-            user_email: userEmail.trim(),
-            user_phone: userPhone.trim(),
-            hectares: 'No especificado',
-            file_links: 'Solicitud de diagnóstico gratuito - No se adjuntaron archivos',
-            map_coordinates: 'No aplica',
-            comments: 'El usuario solicitó un diagnóstico y cotización gratuita desde la sección de Diagnóstico Gratuito.'
-        };
-
-        // Enviar email con EmailJS
-        await emailjs.send(
-            CONFIG.emailjs.serviceId,
-            CONFIG.emailjs.templateId,
-            templateParams
-        );
-
-        // Éxito
-        alert('¡Solicitud de diagnóstico enviada exitosamente! Recibirás una respuesta en tu email en menos de 24 horas.');
-
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Hubo un error al enviar la solicitud. Por favor intenta de nuevo o contáctanos directamente a contacto@mapiadigital.com');
-    }
-}
+});
 
 // ==========================================
 // SUBMIT FORM
